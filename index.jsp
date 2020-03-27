@@ -11,6 +11,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>COVID19 Dashboard India</title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon_package/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon_package/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon_package/favicon-16x16.png">
+        <link rel="manifest" href="./img/favicon_package/site.webmanifest">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
         <link rel="stylesheet" href="./css/thirdparty/bootstrap.min.css">
     </head>
     <body>
@@ -23,7 +31,7 @@
                 <div class="col-6">
                     <h2>new graphs...</h2>
                 </div>
-                
+
             </div>
         </div>
 
