@@ -18,6 +18,7 @@
         <link rel="manifest" href="./img/favicon_package/site.webmanifest">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
+        <link rel="icon" href="./img/favicon_package/favicon.ico" type="image/x-icon">
 
         <link rel="stylesheet" href="./css/thirdparty/bootstrap.min.css">
     </head>
