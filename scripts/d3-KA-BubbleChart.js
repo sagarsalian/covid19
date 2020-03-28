@@ -32,7 +32,7 @@ d3.csv("./scripts/d3-KA-BubbleChart-Data.csv", function(data) {
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
-
+    
 
 
   // Add Y axis
