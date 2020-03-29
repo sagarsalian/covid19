@@ -13,34 +13,33 @@
                 text-align: center;
                 margin-top: 10px;
             }
-
-            .bubbles {
-                stroke-width: 2px;
-                stroke: white;
+            
+            .textAlignCenter {
+                text-align: center;
             }
-            .bubbles:hover {
-                stroke: black;
+            .mainHdrPadding {
+                padding: 5px;
             }
 
         </style>
     </head>
     <body>
-        <h1 style="text-align: center">COVID19 Dashboard</h1>
-
-        <!-- Create an element where the map will take place -->
-        <!--
+        <h1 class="textAlignCenter mainHdrPadding">COVID19 India</h1>
+        
+        <h3 style="text-align: center;"><u>State Wise Plot </u></h3>
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div id="d3chart1" ></div> 
+                    <canvas id="stateChart" width="300" height="300"></canvas>
                 </div>                              
             </div>
-        </div> -->
-           
+        </div>
+        
+        <h3 style="text-align: center;"><u>District Wise scattered Plot Today </u></h3>
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <canvas id="myChart" width="300" height="300" ></canvas>
+                    <canvas id="stateDistChart" width="300" height="300" ></canvas>
                 </div>
             </div>
         </div>
@@ -51,10 +50,14 @@
         <script src="./scripts/thirdparty/bootstrap.min.js" ></script>
         <script src="./scripts/thirdparty/d3/d3.v4.js" ></script>
         <script src="./scripts/thirdparty/d3/d3-scale-chromatic.v1.min.js" ></script>
+        <script src="./scripts/thirdparty/underscore-min.js" ></script>
+        <script src="./scripts/utility.js" ></script>
         <script src="./scripts/chartjsScatteredPlot.js" ></script>
+        <script src="./scripts/chartjsLineChartStatewise.js" ></script>
 
         <script>
-            chartJsScatteredPlotStateDistrictWise('myChart','sagar');
+            chartJsScatteredPlotStateDistrictWise('stateDistChart','testmsg');
+            chartJsLineChartPlotStateWise('stateChart','testmsg');
             
         </script>  
 

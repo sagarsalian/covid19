@@ -1,18 +1,7 @@
 
 var chartJsScatteredPlotStateDistrictWise = function (chartId, arg1) {
 
-    var ctx = document.getElementById("" + chartId + "");
-
-// Get Normalized Value API
-    var getNormalizedValue = function (DataMin, DataMax, NormalizedMin, NormalizedMax, x) {
-        var A = DataMin;
-        var B = DataMax;
-        var a = NormalizedMin;
-        var b = NormalizedMax;
-        var mapValue = 0;
-        mapValue = a + ((x - A) * (b - a) / (B - A));
-        return Math.round(mapValue);
-    };
+    var ctx = document.getElementById(chartId);
 
     var charttooltip = {
         callbacks: {
@@ -34,7 +23,7 @@ var chartJsScatteredPlotStateDistrictWise = function (chartId, arg1) {
         }
     };
 
-    var chartoptions = {
+    var chartOptions = {
         scales: {
             xAxes: [{
                     type: 'linear',
@@ -85,56 +74,36 @@ var chartJsScatteredPlotStateDistrictWise = function (chartId, arg1) {
         var points = new Object();
         points.x = parseInt(item.confirmed); // getNormalizedValue(0,100,0,10,item.confirmed);
         points.y = parseInt(item.death); // getNormalizedValue(0,100,0,10,item.death);
-        points.r = getNormalizedValue(0, maxValue, 5, 20, item.confirmed);
+        points.r = getNormalizedValue(0, maxValue, 5, 15, item.confirmed);
         return points;
     }
 
-// Read the data usin D3 APIS for ChartJS Plot
-// or Ajax call can also be done 
-    d3.csv("./scripts/d3StateDistrictWiseData.csv", function (data) {
+//  Read the data usin D3 APIS for ChartJS Plot
+//  or Ajax call can also be done 
+    d3.csv("./datafiles/stateDistrictWiseData.csv", function (data) {
 
-        var filteredDataKAR = data.filter(obj => obj.state === 'Karnataka');
-        var maxValKar = filteredDataKAR.sort(function (a, b)
-        {
-            return parseInt(b['confirmed']) - parseInt(a['confirmed']);
-        })[0]['confirmed'];
-
-
-        var filteredDataKerala = data.filter(obj => obj.state === 'Kerala');
-        var maxValKer = filteredDataKAR.sort(function (a, b)
-        {
-            return parseInt(b['confirmed']) - parseInt(a['confirmed']);
-        })[0]['confirmed'];
+        var stateList = _.keys(_.countBy(data, function(data) { return data.state; }));
+        var districtList = _.keys(_.countBy(data, function(data) { return data.district; }));        
+        var fullDataMaxVal = getMaxValue(data, "confirmed");
         
-        var filteredDataMHA = data.filter(obj => obj.state === 'Maharashtra');
-        var maxValMHA = filteredDataMHA.sort(function (a, b)
-        {
-            return parseInt(b['confirmed']) - parseInt(a['confirmed']);
-        })[0]['confirmed'];
-
-        var finalDataSet = [{
-                label: 'Karnataka',
-                borderColor: '#2196f3',
-                backgroundColor: '#2196f3',
-                data: filteredDataKAR.map(obj => getConfirmedAndDeathCases(obj, maxValKar))
-            }, {
-                label: 'Kerala',
-                borderColor: 'brown',
-                backgroundColor: 'brown',
-                data: filteredDataKerala.map(obj => getConfirmedAndDeathCases(obj, maxValKer))
-            }, {
-                label: 'Maharashtra',
-                borderColor: 'red',
-                backgroundColor: 'red',
-                data: filteredDataMHA.map(obj => getConfirmedAndDeathCases(obj, maxValMHA))
-            }];
+        var finalDataSet = [];
+        
+        _.each(stateList, function (statename) {
+                var filteredData = data.filter(obj => obj.state === statename);
+                finalDataSet.push({
+                    label: statename,
+                    backgroundColor: stringToColour(statename),
+                    borderColor: stringToColour(statename),
+                    data: filteredData.map(obj => getConfirmedAndDeathCases(obj ,fullDataMaxVal))
+                });               
+        });
 
         var scatterChart = new Chart(ctx, {
             type: 'bubble', //scatter ,bubble
             data: {
                 datasets: finalDataSet
             },
-            options: chartoptions
+            options: chartOptions
 
         });
 
