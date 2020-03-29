@@ -12,7 +12,7 @@ var chartJsLineChartPlotStateWise = function (chartId, arg1) {
                     position: 'bottom',
                     scaleLabel: {
                         display: true,
-                        labelString: 'Positive Cases',
+                        labelString: 'Date',
                         fontColor: "brown"
                     }
                 }],
