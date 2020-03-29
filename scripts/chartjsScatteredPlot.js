@@ -7,7 +7,10 @@ var chartJsScatteredPlotStateDistrictWise = function (chartId, arg1) {
         callbacks: {
             label: function (tooltipItem, data) {
                 //alert(data.datasets[tooltipItem.datasetIndex].label + "..."+data.datasets[tooltipItem.datasetIndex].x);
-                var finalLabel = 'State: ' + data.datasets[tooltipItem.datasetIndex].label
+               var addlnData = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+               
+               var finalLabel = 'State: ' + data.datasets[tooltipItem.datasetIndex].label
+                        + ' ,District: ' + addlnData.other 
                         + ' ,Confirmed: ' + tooltipItem.xLabel
                         + ' ,Death: ' + tooltipItem.yLabel
                         ;
@@ -75,6 +78,7 @@ var chartJsScatteredPlotStateDistrictWise = function (chartId, arg1) {
         points.x = parseInt(item.confirmed); // getNormalizedValue(0,100,0,10,item.confirmed);
         points.y = parseInt(item.death); // getNormalizedValue(0,100,0,10,item.death);
         points.r = getNormalizedValue(0, maxValue, 5, 15, item.confirmed);
+        points.other = item.district;
         return points;
     }
 
