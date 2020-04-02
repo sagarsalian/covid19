@@ -1,4 +1,6 @@
 
+/* global _, Chart */
+
 var chartJsLineChartPlotStateWise = function (chartId, arg1) {
 
     var speedCanvas = document.getElementById(chartId);
@@ -17,6 +19,7 @@ var chartJsLineChartPlotStateWise = function (chartId, arg1) {
                     }
                 }],
             yAxes: [{
+                    // type: 'logarithmic',
                     scaleLabel: {
                         display: true,
                         labelString: 'Daily Confirmed Cases',
@@ -55,33 +58,62 @@ var chartJsLineChartPlotStateWise = function (chartId, arg1) {
     function getConfirmedCases2(item) {        
         return parseInt(item.Confirmed);
     }
+    
+    // line chart fill missing data
+    function fillMissingData(dateList ,filteredData){
+        var newArray = [];
+        // Fill all date's corresponding value points with zero
+        _.each(dateList, function (s1) {
+                var myobj = new Object();
+                myobj.Confirmed = 0;
+                myobj.Date  = s1;
+                newArray.push(myobj);
+        });        
+        // Fill valid point values
+        var i = 0;
+        _.each(filteredData, function (s2) {//O(n*2) operation            
+            var myobj = new Object();
+            myobj.Confirmed = s2.Confirmed;
+            myobj.Date = s2.Date;
+            for (var h=0 ;h < newArray.length ; h++) { 
+                var indexStart = (h-1)<0 ? 0 : (h-1);
+                var indexEnd = h;
+                if(newArray[h].Date === s2.Date) {
+                    newArray[h] = myobj;
+                }
+            }
+            i = i + 1;
+        });
+       
+       return newArray;
+    }
    
-   var finalDataSet = [];
+    
     d3.csv("./datafiles/covid_19_india.csv", function (data) {
-        // alert(JSON.stringify(data));
-        var stateList = _.keys(_.countBy(data, function(data) { return data['State/UnionTerritory']; }));
-        var dateList = _.keys(_.countBy(data, function(data) { return data.Date; })); 
-        var dataProps = _.keys ();
-        alert(JSON.stringify(stateList));
+ 
+        var storeData = data;
+        //storeData = storeData.filter(obj => obj.Sno > 317);
+        var stateList = _.keys(_.countBy(storeData, function(d) { return d['State/UnionTerritory']; }));
+        var dateList = _.keys(_.countBy(storeData, function(d) { return d.Date; })); 
+        var dataPropsList = _.keys(storeData[0]);
         
-        var statewiseJsonData = _.groupBy(data, 'State/UnionTerritory');
-        console.log(JSON.stringify(statewiseJsonData));
+        var statewiseJsonData = _.groupBy(storeData, 'State/UnionTerritory');
         var jarrMaxSize = dateList.length;
         
         var finalDataSet = [];
-        stateList = [];
-        stateList.push('Kerala');
-        stateList.push('Telengana');
         _.each(stateList, function (statename) {
                 var filteredData = statewiseJsonData[statename];
-                alert(statename + " size is " + filteredData.length);
+                var correctedData = fillMissingData(dateList ,filteredData);
+                //alert(JSON.stringify(correctedData));
+                var confirmedArray = correctedData.map(obj => getConfirmedCases2(obj));
+                // alert(confirmedArray + " size is " + confirmedArray.length);
                 finalDataSet.push({
                     label: statename,
                     lineTension: 0,
                     fill: false,
-                    spanGaps: true, /**/
+                    pointRadius : 3,
                     borderColor: stringToColour(statename),
-                    data: filteredData.map(obj => getConfirmedCases2(obj))
+                    data: confirmedArray
                 });               
         });
         // alert(JSON.stringify(finalDataSet));
@@ -97,38 +129,6 @@ var chartJsLineChartPlotStateWise = function (chartId, arg1) {
         });
 
     });
-
-    // fetch Data
-    d3.csv("./datafiles/statetWiseDailyData.csv", function (data) {
-
-        var stateList = _.keys(_.countBy(data, function(data) { return data.state; })); 
-        var dateList = _.keys(_.countBy(data, function(data) { return data.date; })); 
-
-        var finalDataSet = [];
-        
-        _.each(stateList, function (statename) {
-                var filteredData = data.filter(obj => obj.state === statename);
-                finalDataSet.push({
-                    label: statename,
-                    lineTension: 0,
-                    fill: false,
-                    borderColor: stringToColour(statename),
-                    data: filteredData.map(obj => getConfirmedCases(obj))
-                });               
-        });       
-        /*        
-       var finalLineChartData = {
-            labels: dateList,
-            datasets: finalDataSet
-        };
-    
-        var lineChart = new Chart(speedCanvas, {
-            type: 'line',
-            data: finalLineChartData,
-            options: chartOptions
-        }); */
-    });
-
     
 
 };
