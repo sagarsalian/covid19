@@ -34,7 +34,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
             padding: {
                 left: 50,
                 right: 50,
-                top: 30,
+                top: 20,
                 bottom: 20
             }
         },
@@ -43,7 +43,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
             position: 'bottom',
             paddingBottom: 10,
             labels: {
-                boxWidth: 40,
+                //boxWidth: 40,
                 fontColor: 'black'
             }
         },
