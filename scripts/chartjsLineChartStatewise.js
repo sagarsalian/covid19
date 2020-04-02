@@ -19,10 +19,10 @@ var chartJsLineChartPlotStateWise = function (chartId, arg1) {
             yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: 'Confirmed Cases',
+                        labelString: 'Daily Confirmed Cases',
                         fontColor: "brown"
                     }, ticks: {
-                        beginAtZero: true,
+                        //beginAtZero: true,
                         padding: 10
                     }
                 }]
@@ -51,31 +51,45 @@ var chartJsLineChartPlotStateWise = function (chartId, arg1) {
     function getConfirmedCases(item) {        
         return parseInt(item.confirmed);
     }
+    
+    function getConfirmedCases2(item) {        
+        return parseInt(item.Confirmed);
+    }
    
    var finalDataSet = [];
-    d3.csv("./datafiles/dailyStateWiseConfirmed.csv", function (data) {
+    d3.csv("./datafiles/covid_19_india.csv", function (data) {
         // alert(JSON.stringify(data));
-        var dateList = _.keys(_.countBy(data, function(data) { return data.date; })); 
-        alert(JSON.stringify(dateList));
-        var keys = _.keys(data[0]);        
-        var finalDataSet = new Array(20);
-        var i = 0;
-        _.each(data, function (d) {
-            _.each(keys, function (key) {
-                if (key !== 'date') {
-                    // alert("key=" + key +" ," +d[key]);
-                    finalDataSet[i] = d[key];
-                    // finalDataSet.push(key).push(d[key]);
-                    i = i + 1;
-                }
-            });
-            i = 0;
-         });
-        alert(JSON.stringify(finalDataSet));
+        var stateList = _.keys(_.countBy(data, function(data) { return data['State/UnionTerritory']; }));
+        var dateList = _.keys(_.countBy(data, function(data) { return data.Date; })); 
+        var dataProps = _.keys ();
+        alert(JSON.stringify(stateList));
+        
+        var statewiseJsonData = _.groupBy(data, 'State/UnionTerritory');
+        console.log(JSON.stringify(statewiseJsonData));
+        var jarrMaxSize = dateList.length;
+        
+        var finalDataSet = [];
+        stateList = [];
+        stateList.push('Kerala');
+        stateList.push('Telengana');
+        _.each(stateList, function (statename) {
+                var filteredData = statewiseJsonData[statename];
+                alert(statename + " size is " + filteredData.length);
+                finalDataSet.push({
+                    label: statename,
+                    lineTension: 0,
+                    fill: false,
+                    spanGaps: true, /**/
+                    borderColor: stringToColour(statename),
+                    data: filteredData.map(obj => getConfirmedCases2(obj))
+                });               
+        });
+        // alert(JSON.stringify(finalDataSet));
         var finalLineChartData = {
             labels: dateList,
             datasets: finalDataSet
         };
+    
         var lineChart = new Chart(speedCanvas, {
             type: 'line',
             data: finalLineChartData,
