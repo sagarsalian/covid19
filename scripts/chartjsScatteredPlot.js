@@ -34,7 +34,7 @@ var chartJsScatteredPlotStateDistrictWise = function (data, chartId) {
                     scaleLabel: {
                         display: true,
                         labelString: 'Total Confirmed Cases',
-                        fontColor: "brown"
+                        fontColor: "red"
                     }, ticks: {
                         beginAtZero: true,
                         padding: 10
@@ -44,7 +44,7 @@ var chartJsScatteredPlotStateDistrictWise = function (data, chartId) {
                     scaleLabel: {
                         display: true,
                         labelString: 'Total Death Cases',
-                        fontColor: "brown"
+                        fontColor: "red"
                     }, ticks: {
                         beginAtZero: true,
                         padding: 10
@@ -64,6 +64,7 @@ var chartJsScatteredPlotStateDistrictWise = function (data, chartId) {
             position: 'bottom',
             paddingBottom: 10,
             labels: {
+                boxWidth: 40,
                 fontColor: "black"
             }
         },
