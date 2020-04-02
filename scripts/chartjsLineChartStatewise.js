@@ -52,6 +52,38 @@ var chartJsLineChartPlotStateWise = function (chartId, arg1) {
         return parseInt(item.confirmed);
     }
    
+   var finalDataSet = [];
+    d3.csv("./datafiles/dailyStateWiseConfirmed.csv", function (data) {
+        // alert(JSON.stringify(data));
+        var dateList = _.keys(_.countBy(data, function(data) { return data.date; })); 
+        alert(JSON.stringify(dateList));
+        var keys = _.keys(data[0]);        
+        var finalDataSet = new Array(20);
+        var i = 0;
+        _.each(data, function (d) {
+            _.each(keys, function (key) {
+                if (key !== 'date') {
+                    // alert("key=" + key +" ," +d[key]);
+                    finalDataSet[i] = d[key];
+                    // finalDataSet.push(key).push(d[key]);
+                    i = i + 1;
+                }
+            });
+            i = 0;
+         });
+        alert(JSON.stringify(finalDataSet));
+        var finalLineChartData = {
+            labels: dateList,
+            datasets: finalDataSet
+        };
+        var lineChart = new Chart(speedCanvas, {
+            type: 'line',
+            data: finalLineChartData,
+            options: chartOptions
+        });
+
+    });
+
     // fetch Data
     d3.csv("./datafiles/statetWiseDailyData.csv", function (data) {
 
@@ -70,7 +102,7 @@ var chartJsLineChartPlotStateWise = function (chartId, arg1) {
                     data: filteredData.map(obj => getConfirmedCases(obj))
                 });               
         });       
-                
+        /*        
        var finalLineChartData = {
             labels: dateList,
             datasets: finalDataSet
@@ -80,7 +112,7 @@ var chartJsLineChartPlotStateWise = function (chartId, arg1) {
             type: 'line',
             data: finalLineChartData,
             options: chartOptions
-        });
+        }); */
     });
 
     
