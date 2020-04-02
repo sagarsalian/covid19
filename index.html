@@ -20,42 +20,65 @@
             .mainHdrPadding {
                 padding: 5px;
             }
+            .chartPadding {
+                padding: 10px;
+            }
+            .redColor {
+                color:red
+            }
 
         </style>
+        <script>
+    
+        </script>
     </head>
     <body>
         <h1 class="textAlignCenter mainHdrPadding">COVID-19 India</h1>
         
-        <!--<h3 style="text-align: center;"><u>Rise in Covid-19 cases</u></h3>
-        <p style="text-align: center;">Updated on  28/03/2020 </p>
+        <!--
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <canvas id="stateChart" width="400" height="400"></canvas>
+                    <center>
+                    <select
+                        onclick="test(this);"
+                        style="width:300px;"
+                        multiple >
+                        <option selected>All</option>
+                        <option>Karnataka</option>
+                        <option>Kerala</option>
+                        <option>Telengana</option>
+                        <option>Maharashtra</option>
+                    </select>
+                    </center>    
                 </div>                              
             </div>
         </div> -->
         
-        <h3 style="text-align: center;"><u>State Wise Daily Confirmed Cases </u></h3>
-        <p style="text-align: center;">Updated on  2/04/2020 </p>
+        <h3 style="text-align: center;"><u>State-Wise Total <span class="redColor">Confirmed and Death Cases</span> </u></h3>
+        <p style="text-align: center;"><span id="stateTotalId"> </span></p>
         <div class="container">
             <div class="row">
-                <div class="col-12" >
-                    <canvas id="stateChart" width="800" height="700" ></canvas>
-                </div>                           
+                <div class="col-12">
+                    <canvas id="stateTotalChart" width="500" height="500" ></canvas>
+                </div>
             </div>
         </div>
          
         
-        <h3 style="text-align: center;"><u>District Wise scattered Plot </u></h3>
-        <p style="text-align: center;">Updated on  28/03/2020 </p>
+        <div class="chartPadding"></div>
+        
+        <h3 style="text-align: center;"><u>State-Wise Daily <span class="redColor">Confirmed Cases</span> </u></h3>
+        <p style="text-align: center;"><span id="stateDailyConfirmedId"> </span></p>
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <canvas id="stateDistChart" width="400" height="400" ></canvas>
-                </div>
+                    <canvas id="stateConfirmedLineChart" width="1000" height="600"></canvas>
+                </div>                              
             </div>
         </div>
+        
+        
         
 
         <script src="./scripts/thirdparty/chart.min.js"></script>
@@ -66,12 +89,13 @@
         <script src="./scripts/thirdparty/d3/d3-scale-chromatic.v1.min.js" ></script>
         <script src="./scripts/thirdparty/underscore-min.js" ></script>
         <script src="./scripts/utility.js" ></script>
+        <script src="./scripts/chartjsWrapper.js" ></script>
         <script src="./scripts/chartjsScatteredPlot.js" ></script>
         <script src="./scripts/chartjsLineChartStatewise.js" ></script>
 
         <script>
-            chartJsScatteredPlotStateDistrictWise('stateDistChart','testmsg');
-            chartJsLineChartPlotStateWise('stateChart','testmsg');
+            
+            chartJsPlot('stateConfirmedLineChart','stateTotalChart');
             
         </script>  
 
