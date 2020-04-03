@@ -65,7 +65,7 @@ var chartJsPlot = function (chartId1, chartId2) {
         var statewiseJsonData = _.groupBy(storeData, 'State/UnionTerritory');
         
         /*  State-Wise Daily Confirmed Cases  */
-        $('#stateDailyConfirmedId').text("Updated on " + dateList[dateList.length - 1] + "20");//temporary !!
+        $('#stateDailyConfirmedId').text("Updated on " + parseDateFmt(dateList[dateList.length - 1]) );//temporary !!
 
         var finalDataSet = [];
         _.each(stateList, function (statename) {

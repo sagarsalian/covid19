@@ -34,20 +34,24 @@ var chartJsScatteredPlotStateDistrictWise = function (data, chartId) {
                     scaleLabel: {
                         display: true,
                         labelString: 'Total Confirmed Cases',
-                        fontColor: "red"
+                        fontColor: "red",
+                        fontSize: 20
                     }, ticks: {
                         beginAtZero: true,
-                        padding: 10
+                        padding: 10,
+                        fontSize: 15
                     }
                 }],
             yAxes: [{
                     scaleLabel: {
                         display: true,
                         labelString: 'Total Death Cases',
-                        fontColor: "red"
+                        fontColor: "red",
+                        fontSize: 20
                     }, ticks: {
                         beginAtZero: true,
-                        padding: 10
+                        padding: 10,
+                        fontSize: 15
                     }
                 }]
         },

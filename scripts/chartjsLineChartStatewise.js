@@ -15,7 +15,11 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
                     scaleLabel: {
                         display: true,
                         labelString: 'Date',
-                        fontColor: "red"
+                        fontColor: "red",
+                        fontSize: 20
+                    }, ticks: {
+                        padding: 5,
+                        fontSize: 15
                     }
                 }],
             yAxes: [{
@@ -23,10 +27,12 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
                     scaleLabel: {
                         display: true,
                         labelString: 'Daily Confirmed Cases',
-                        fontColor: "red"
+                        fontColor: "red",
+                        fontSize: 20
                     }, ticks: {
                         //beginAtZero: true,
-                        padding: 10
+                        padding: 10,
+                        fontSize: 15
                     }
                 }]
         },

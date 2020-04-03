@@ -43,5 +43,17 @@ var stringToColour = function(str) {
 };
 
 
+// parse date format dd/mm/yy
+var parseDateFmt = function(dt) {
+    var dtArr = dt.split("/");
+    var fullyear = new Date().getFullYear();
+    var fullyearCmp = parseInt(fullyear.toString().substr(2,2));
+    var retDate = dtArr[0]+"/"+dtArr[1]+"/"+dtArr[2];
+    if (fullyearCmp === parseInt(dtArr[2])) {
+        retDate = dtArr[0]+"/"+dtArr[1]+"/"+fullyear;
+    }
+    return retDate;
+};
+
 
 
