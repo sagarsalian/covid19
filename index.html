@@ -20,6 +20,7 @@
             }
             .mainHdrPadding {
                 padding: 5px;
+                background-color: #33ccff;
             }
             .chartPadding {
                 padding: 10px;
@@ -59,7 +60,17 @@
                                             <canvas id="stateTotalChart" width="1000" height="600" ></canvas>
                                         </div>
                                     </div>
-                                </div>                
+                                </div>
+                                <div class="chartPadding"></div>   
+                                <h3 style="text-align: center;"><u>Top 10 States Daily <span class="redColor">Confirmed Cases</span> </u></h3>
+                                <p style="text-align: center;"><span id="stateDailyConfirmedTop10Id"> </span></p>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <canvas id="stateConfirmedLineChartTop10" width="1000" height="600"></canvas>
+                                        </div>                              
+                                    </div>
+                                </div>
                                 <div class="chartPadding"></div>       
                                 <h3 style="text-align: center;"><u>State-Wise Daily <span class="redColor">Confirmed Cases</span> </u></h3>
                                 <p style="text-align: center;"><span id="stateDailyConfirmedId"> </span></p>
@@ -70,6 +81,8 @@
                                         </div>                              
                                     </div>
                                 </div>
+                                    
+                                
 
 
                             </div>
@@ -102,7 +115,7 @@
                 hi = window.innerHeight || root.clientHeight || body.clientHeight;
             var addlnwid = 0;    
             $("#stateTotalChart,#stateConfirmedLineChart").width(wid + addlnwid); //.height(200);
-            chartJsPlot('stateConfirmedLineChart', 'stateTotalChart');
+            chartJsPlot('stateConfirmedLineChart', 'stateTotalChart','stateConfirmedLineChartTop10');
 
         </script>  
 
