@@ -100,7 +100,8 @@
             var d = document, root = d.documentElement, body = d.body;
             var wid = window.innerWidth || root.clientWidth || body.clientWidth,
                 hi = window.innerHeight || root.clientHeight || body.clientHeight;
-            $("#stateTotalChart,#stateConfirmedLineChart").width(wid); //.height(200);
+            var addlnwid = 0;    
+            $("#stateTotalChart,#stateConfirmedLineChart").width(wid + addlnwid); //.height(200);
             chartJsPlot('stateConfirmedLineChart', 'stateTotalChart');
 
         </script>  
