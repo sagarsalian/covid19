@@ -34,7 +34,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
             padding: {
                 left: 50,
                 right: 50,
-                top: 30,
+                top: 20,
                 bottom: 20
             }
         },
@@ -43,7 +43,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
             position: 'bottom',
             paddingBottom: 10,
             labels: {
-                boxWidth: 40,
+                //boxWidth: 40,
                 fontColor: 'black'
             }
         },
@@ -51,30 +51,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
         maintainAspectRatio: false
     };
 
- 
-
-    
-
-    
-
-    // var jarrMaxSize = dateList.length;
-
-    /*var finalDataSet = [];
-    _.each(stateList, function (statename) {
-        var filteredData = statewiseJsonData[statename];
-        var correctedData = fillMissingData(dateList, filteredData);
-        //alert(JSON.stringify(correctedData));
-        var confirmedArray = correctedData.map(obj => getConfirmedCases(obj));
-        finalDataSet.push({
-            label: statename,
-            lineTension: 0,
-            fill: false,
-            pointRadius: 3,
-            borderColor: stringToColour(statename),
-            data: confirmedArray
-        });
-    });*/
-
+  // Data mapping 
     var finalLineChartData = {
         labels: dateList,
         datasets: finalDataSet
