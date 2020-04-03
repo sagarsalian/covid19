@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <title>COVID19 Dashboard India</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="./css/thirdparty/bootstrap.min.css" >
@@ -14,7 +14,7 @@
                 text-align: center;
                 margin-top: 10px;
             }
-            
+
             .textAlignCenter {
                 text-align: center;
             }
@@ -30,58 +30,59 @@
 
         </style>
         <script>
-    
+            
+           
+            
         </script>
     </head>
     <body>
         <h1 class="textAlignCenter mainHdrPadding">COVID-19 India</h1>
-                
+
         <section id="tabs">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 ">
-				<nav>
-					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-					</div>
-				</nav>
-				<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-					<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-						<h3 style="text-align: center;"><u>State-Wise Total <span class="redColor">Confirmed and Death Cases</span> </u></h3>
-        <p style="text-align: center;"><span id="stateTotalId"> </span></p>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <canvas id="stateTotalChart" width="1000" height="600" ></canvas>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 ">
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Graphs</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Tabular</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                                <h3 style="text-align: center;"><u>State-Wise Total <span class="redColor">Confirmed and Death Cases</span> </u></h3>
+                                <p style="text-align: center;"><span id="stateTotalId"> </span></p>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <canvas id="stateTotalChart" width="1000" height="600" ></canvas>
+                                        </div>
+                                    </div>
+                                </div>                
+                                <div class="chartPadding"></div>       
+                                <h3 style="text-align: center;"><u>State-Wise Daily <span class="redColor">Confirmed Cases</span> </u></h3>
+                                <p style="text-align: center;"><span id="stateDailyConfirmedId"> </span></p>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <canvas id="stateConfirmedLineChart" width="1000" height="600"></canvas>
+                                        </div>                              
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>                
-        <div class="chartPadding"></div>       
-        <h3 style="text-align: center;"><u>State-Wise Daily <span class="redColor">Confirmed Cases</span> </u></h3>
-        <p style="text-align: center;"><span id="stateDailyConfirmedId"> </span></p>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <canvas id="stateConfirmedLineChart" width="1000" height="600"></canvas>
-                </div>                              
-            </div>
-        </div>
-                                        </div>
-					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
-					</div>
-				</div>
-			
-			</div>
-		</div>
-	</div>
-</section>
-        
-        
-        
-        
-        
+        </section>
+
 
         <script src="./scripts/thirdparty/chart.min.js"></script>
         <script src="./scripts/thirdparty/jquery-3.4.1.slim.min.js"></script>
@@ -96,9 +97,12 @@
         <script src="./scripts/chartjsLineChartStatewise.js" ></script>
 
         <script>
-            
-            chartJsPlot('stateConfirmedLineChart','stateTotalChart');
-            
+            var d = document, root = d.documentElement, body = d.body;
+            var wid = window.innerWidth || root.clientWidth || body.clientWidth,
+                hi = window.innerHeight || root.clientHeight || body.clientHeight;
+            $("#stateTotalChart,#stateConfirmedLineChart").width(wid); //.height(200);
+            chartJsPlot('stateConfirmedLineChart', 'stateTotalChart');
+
         </script>  
 
     </body>
