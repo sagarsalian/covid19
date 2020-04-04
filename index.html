@@ -10,48 +10,76 @@
         <link rel="stylesheet" href="./css/thirdparty/bootstrap.min.css" >
         <link rel="stylesheet" href="./css/custom.css" >
         <link rel="stylesheet" href="./css/customTabular.css" >
+
         <style>
             .mainbody {
                 background: whitesmoke !important; 
             }
             
-            #d3chart1 {
-                text-align: center;
-                margin-top: 10px;
-            }
-
             .textAlignCenter {
                 text-align: center;
             }
             .mainHdrPadding {
                 padding: 5px;
+                background-color: #33ccff;
+                width: 100%;
             }
+            
             .chartPadding {
                 padding: 10px;
             }
             .redColor {
-                color:red
+                color:red ;
             }
             
             .selectionColor {
                 color : brown;
             }
             
-           
+                       
         </style>
-        <script>
+        <style>
+h1 {
+  font-weight: 300;
+  display: inline-block;
+  padding-bottom: 5px;
+  position: relative;
+  text-align: center;
+}
+h1:before{
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 1px;
+    padding: 2px;
+    bottom: 0;
+    left: 25%;
+    border-bottom: 3px solid #0275d8;
+}
+h3 {
+  font-weight: 300;
+  display: inline-block;
+  padding-bottom: 5px;
+  position: relative;
+  text-align: center;
+}
+h3:before{
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 1px;
+    bottom: 0;
+    left: 25%;
+    border-bottom: 2px solid purple;
+}
+</style>
 
-        </script>
     </head>
     <body class="mainbody">
-        <div class="row">
-            <div class="col-12" style="background-color: #33ccff;">
-                <h1 class="textAlignCenter mainHdrPadding">COVID-19 India</h1>
-            </div> 
-        </div>
-        
-
-        <section id="tabs">
+        <center>
+       <h1 id="mainheader" class="display-4">COVID-19 India</h1>
+       </center>
+        <section id="tabs" >
             <div class="container">
                 <div class="row">
                     <div class="col-12 ">
@@ -67,7 +95,9 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-5"></div> 
-                                        <select id="stateFilterSelId" onchange="mainFilter(this);" class="col-3 selectionColor" style="height:50px;text-align: center;">
+                                        <select id="stateFilterSelId" onchange="mainFilter(this);" 
+                                                class="col-3 selectionColor" 
+                                                style="height:50px;text-align: center;">
                                             <option value="Top10" selected>Top 10 States</option>
                                             <option value="All">All States</option>
                                         </select>
@@ -75,7 +105,7 @@
                                     </div>
                                 </div>   
                                 <div class="chartPadding"></div>
-                                <h3 style="text-align: center;"><u>State-Wise Total <span class="redColor">Confirmed and Death Cases</span> </u></h3>
+                                <center><h3>State-Wise Total <span class="redColor">Confirmed and Death Cases</span> </h3></center>
                                 <p style="text-align: center;"><span id="stateTotalSpanId"> </span></p>
                                 <div class="container">
                                     <div class="row">
@@ -86,7 +116,7 @@
                                 </div>
                                 <div class="chartPadding"></div>                                             
                                                                      
-                                <h3 style="text-align: center;"><u>State-Wise Daily <span class="redColor">Confirmed Cases</span> </u></h3>
+                                <center><h3 style="text-align: center;">State-Wise Daily <span class="redColor">Confirmed Cases</span> </h3></center>
                                 <p style="text-align: center;"><span id="stateDailyConfirmSpanId"> </span></p>
                                 <div class="container">
                                     <div class="row">
@@ -98,10 +128,10 @@
                                     
                             </div>
                             
-                            
+                            <!-- second tab -->
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <div class="chartPadding"></div>
-                                <h3 style="text-align: center;"><u>State-Wise <span class="redColor">Confirmed Cases</span> </u></h3>
+                                <center><h3 style="text-align: center;">State-Wise <span class="redColor">Confirmed Cases</span> </h3></center>
                                 <p style="text-align: center;"><span id="tab2SpanId1"> </span></p>         
                                 <div class="container">
                                     <div class="row">
