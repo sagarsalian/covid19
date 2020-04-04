@@ -1,9 +1,16 @@
 
 /* global d3, _ */
 
-var tabularPlot2 = function (chartId1) {
+var columnMapFn1 = function (arg) {
+    if (arg === "confirmedArray") {
+        return "Last 7 Days";
+    }
+    return arg;
+};
 
-    var columns = ['state', 'confirmedArray'];
+var tabularPlot = function (chartId1) {
+
+    var columns = ['SI' ,'state', 'confirmedArray'];
 
     d3.csv("./datafiles/covid_19_india.csv", function (data) {
         var storeData = data;
@@ -29,104 +36,13 @@ var tabularPlot2 = function (chartId1) {
         var maxConfirmedValue = getMaxValue(tabularDataSet,'maxConfirmed');
         var sortedDescTopNStates = _.sortBy(tabularDataSet, 'maxConfirmed').reverse();// .slice(startIndex, endIndex);
         var data = [];
+        var serialNo=0;
         _.each(sortedDescTopNStates, function (myData) {
-            var n = new Array(myData.state, myData.confirmedArray);
+            var n = new Array(++serialNo ,myData.state, myData.confirmedArray);            
             data.push(n);
         });
 
-        // create table
-        var table = d3.select("#table").append("table");
-
-        var thead = table.append("thead").append("tr");
-
-        thead.selectAll("th")
-                .data(columns)
-                .enter()
-                .append("th")
-                .text(function (d) {
-                    if(d === "confirmedArray"){
-                        d = "Last 7 Days";
-                    }
-                    return d.toUpperCase();
-                });
-
-        var tbody = table.append("tbody");
-
-        var trows = tbody
-                .selectAll("tr")
-                .data(data)
-                .enter()
-                .append("tr");
-
-        var tcells = trows
-                .selectAll("td")
-                .data(function (d, i) {
-                    return d;
-                })
-                .enter()
-                .append("td")
-                .text(function (d, i) {
-                    return d;
-                });
-
-        // update (add a column with graphs)
-        thead.append("th").text(' Graphs');
-
-        trows.selectAll("td.graph")
-                //use a class so you don't re-select the existing <td> elements
-                .data(function (d) {
-                    return [d[1]];
-                })
-                .enter()
-                .append("td")
-                .attr("class", "graph")
-                .each(lines);
-
-
-        // a sparklines plot
-        function lines(test) {
-           // var width = 100, height = 20;
-            var width = 100, height = 40;
-            // alert("test" + maxConfirmedValue);
-            var data = [];
-            for (var i = 0; i < test.length; i++) {
-                data[i] = {
-                    'x': i,
-                    'y': +getNormalizedValue(0,maxConfirmedValue,0,50 ,test[i])
-                };
-            }
-            //alert("test2" + JSON.stringify(data));
-
-            var x = d3.scaleLinear()
-                    .range([0, width - 10])
-                    .domain([0, 5]);
-
-            var y = d3.scaleLinear()
-                    .range([height, 0])
-                    .domain([0, 50]);
-
-            var line = d3.line()
-                    .x(function (d) {
-                        return x(d.x);
-                    })
-                    .y(function (d) {
-                        return y(d.y);
-                    });
-
-            d3.select(this).append('svg')
-                    .attr('width', width)
-                    .attr('height', height)
-                    .append('path')
-                    .attr('class', 'line')
-                    .datum(data)
-                    .attr('d', line);
-
-        }
-        var button = $("<button>Button</button>");
-        button.click(function () {
-            alert("here i have used data in json format : " + JSON.stringify(data));
-        });
-        //button.appendTo(".graph");
+        tabularLineGraphPrint(chartId1 ,columns ,data ,maxConfirmedValue ,2 /*d[1]*/ ,columnMapFn1);
 
     });
 

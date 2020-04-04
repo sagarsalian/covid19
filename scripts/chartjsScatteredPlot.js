@@ -1,5 +1,5 @@
 
-var chartJsScatteredPlotStateWise = function (data, chartId ,allFlag) {
+var chartJsScatteredPlotStateWise = function (data, chartId ,stateList ,allFlag) {
 
     if( window.scatteredChart!==undefined) {
          window.scatteredChart.destroy();
@@ -54,7 +54,10 @@ var chartJsScatteredPlotStateWise = function (data, chartId ,allFlag) {
                     }, ticks: {
                         beginAtZero: true,
                         padding: 10,
-                        fontSize: 15
+                        fontSize: 15,
+                        callback: function(value, index, values) {//needed to change the scientific notation results from using logarithmic scale
+                            return Number(value.toString());//pass tick values as a string into Number function
+                        }
                     }
                 }],
             yAxes: [{
@@ -67,7 +70,10 @@ var chartJsScatteredPlotStateWise = function (data, chartId ,allFlag) {
                     }, ticks: {
                         beginAtZero: true,
                         padding: 10,
-                        fontSize: 15
+                        fontSize: 15,
+                        callback: function(value, index, values) {//needed to change the scientific notation results from using logarithmic scale
+                            return Number(value.toString());//pass tick values as a string into Number function
+                        }
                     }
                 }]
         },
@@ -101,10 +107,7 @@ var chartJsScatteredPlotStateWise = function (data, chartId ,allFlag) {
         return points;
     }
 
-
-    var stateList = _.keys(_.countBy(data, function (data) {
-        return data.state;
-    }));
+    
     var confirmMaxVal = getMaxValue(data, "confirmed");
     var deathMaxVal = getMaxValue(data, "death");
     var recoveredMaxVal = getMaxValue(data, "recovered");

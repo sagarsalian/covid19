@@ -57,6 +57,14 @@ var getArrayIndex = function (a , b,arrSize){
     else return [0 ,arrSize ,true];
 };
 
+var getSortedStateList = function (jsonarr) {
+    var sortedStateList = [];
+    _.each(jsonarr, function (r) {
+        sortedStateList.push(r.state);
+    });
+    return sortedStateList;
+};
+
 var chartJsPlotTopN = function (startIdx ,endIdx ,chartId1, chartId2) {
     var allFlag = false;
     var startIndex = startIdx;
@@ -87,27 +95,24 @@ var chartJsPlotTopN = function (startIdx ,endIdx ,chartId1, chartId2) {
             var confirmedArray = filteredData.map(obj => getConfirmedCases(obj));
             var deathArray = filteredData.map(obj => getDeathCases(obj));
             var curedArray = filteredData.map(obj => getCuredCases(obj));
-            var currConfirmedCnt = (confirmedArray[confirmedArray.length - 1] === null)?0:confirmedArray[confirmedArray.length - 1];
-            var currDeathCnt = (deathArray[deathArray.length - 1] === null)?0:deathArray[deathArray.length - 1];
-            var currCuredCnt = (curedArray[curedArray.length - 1] === null)?0:curedArray[curedArray.length - 1];
+            var currConfirmedCnt = (confirmedArray.length === 0)?0:confirmedArray[confirmedArray.length - 1];
+            var currDeathCnt = (deathArray.length === 0)?0:deathArray[deathArray.length - 1];
+            var currCuredCnt = (curedArray.length === 0)?0:curedArray[curedArray.length - 1];
+            var totalConfirmDeathCnt = parseInt(currConfirmedCnt) + parseInt(currDeathCnt);
             var totalCnt = parseInt(currConfirmedCnt) + parseInt(currCuredCnt) + parseInt(currDeathCnt);
             scatteredPlotDataSet.push(
-                    {"state": statename, "confirmed": currConfirmedCnt, "recovered": currCuredCnt, "death": currDeathCnt, "total": totalCnt});
+                    {"state": statename, "confirmed": currConfirmedCnt, "recovered": currCuredCnt, "death": currDeathCnt,
+                        "totalConfirmDeath":totalConfirmDeathCnt,"total": totalCnt });
         });
-        var sortedDescTopNStates = _.sortBy(scatteredPlotDataSet, 'confirmed')
-                .reverse().slice(startIndex, endIndex);
-        
-        // PLOT 2
-        chartJsScatteredPlotStateWise(sortedDescTopNStates, chartId2 ,allFlag);
+        var sortedDescTopNStates = _.sortBy(scatteredPlotDataSet, 'confirmed').reverse().slice(startIndex, endIndex);
+        var sortedStateList = getSortedStateList(sortedDescTopNStates); 
+        // PLOT 2        
+        chartJsScatteredPlotStateWise(sortedDescTopNStates, chartId2, sortedStateList, allFlag);
 
         /*  State-Wise Daily Confirmed Cases TOP N */
-        
-        stateList = _.keys(_.countBy(sortedDescTopNStates, function (d) {
-            return d['state'];
-        }));
 
         var finalDataSet = [];
-        _.each(stateList, function (statename) {
+        _.each(sortedStateList, function (statename) {
             var filteredData = statewiseJsonData[statename];
             var correctedData = fillMissingData(dateList, filteredData);
             var confirmedArray = correctedData.map(obj => getConfirmedCases(obj));
@@ -120,9 +125,12 @@ var chartJsPlotTopN = function (startIdx ,endIdx ,chartId1, chartId2) {
                 data: confirmedArray
             });
         });
-
+        var obj1 = statewiseJsonData[finalDataSet[0].label];
+        var maxValInDsLen = obj1.length;
+        var maxValInDs = obj1[maxValInDsLen-1].Confirmed;
+               
         // PLOT 1
-        chartJsLineChartPlotStateWise(finalDataSet, dateList, chartId1 ,allFlag);
+        chartJsLineChartPlotStateWise(finalDataSet ,dateList ,chartId1 ,maxValInDs ,allFlag);
 
 
     });

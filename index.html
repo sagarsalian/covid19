@@ -115,7 +115,6 @@
                                     </div>
                                 </div>
                                <div class="chartPadding"></div>
-
                                
                                <div class="container">
                                     <div class="row">
@@ -155,7 +154,8 @@
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <div class="chartPadding"></div>
                                 <center><h3 style="text-align: center;">State-Wise <span class="redColor">Confirmed Cases</span> </h3></center>
-                                <p style="text-align: center;"><span id="tab2SpanId1"> </span></p>         
+                                <p style="text-align: center;"><span id="tab2SpanId1"> </span></p>
+                                <div class="chartPadding"></div>
                                 <div class="container">
                                     <div class="row">
                                         <div>
@@ -184,9 +184,10 @@
         <script src="./scripts/thirdparty/underscore-min.js" ></script>
         <script src="./scripts/thirdparty/d3/table.js" ></script>
         <script src="./scripts/utility.js" ></script>
-        <script src="./scripts/chartjsWrapper.js" ></script>
         <script src="./scripts/chartjsScatteredPlot.js" ></script>
         <script src="./scripts/chartjsLineChartStatewise.js" ></script>
+        <script src="./scripts/chartjsWrapper.js" ></script>
+        <script src="./scripts/tableGraphPlot.js" ></script>
         <script src="./scripts/tabularWrapper.js" ></script>
 
         <script>
@@ -206,6 +207,7 @@
             var scalingSelIdValue = document.getElementById("scalingSelId").value;
             window.lineChartScalingType = scalingSelIdValue;
             
+            //function selectChartPlot
             function onChangeMainFilter(arg){
                 var val = arg.value;
                 if (val === "Top10") {
@@ -226,7 +228,7 @@
                 }
             }
                        
-            tabularPlot2("table");
+            tabularPlot("table");
         </script>  
 
     </body>

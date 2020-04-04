@@ -1,7 +1,7 @@
 
 /* global _, Chart */
 
-var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,allFlag) {
+var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,maxVal ,allFlag) {
 
     if( window.lineChartState!==undefined) {
          window.lineChartState.destroy();
@@ -35,6 +35,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,a
                     }, ticks: {
                         padding: 5,
                         fontSize: 15
+                        
                     }
                 }],
             yAxes: [{
@@ -47,7 +48,10 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,a
                     }, ticks: {
                         //beginAtZero: true,
                         padding: 10,
-                        fontSize: 15
+                        fontSize: 15,
+                        callback: function(value, index, values) {//needed to change the scientific notation results from using logarithmic scale
+                            return Number(value.toString());//pass tick values as a string into Number function
+                        }
                     }
                 }]
         },
