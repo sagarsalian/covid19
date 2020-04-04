@@ -11,6 +11,10 @@
         <link rel="stylesheet" href="./css/custom.css" >
         <link rel="stylesheet" href="./css/customTabular.css" >
         <style>
+            .mainbody {
+                background: whitesmoke !important; 
+            }
+            
             #d3chart1 {
                 text-align: center;
                 margin-top: 10px;
@@ -21,7 +25,6 @@
             }
             .mainHdrPadding {
                 padding: 5px;
-                background-color: #33ccff;
             }
             .chartPadding {
                 padding: 10px;
@@ -37,13 +40,16 @@
            
         </style>
         <script>
-            
-           
-            
+
         </script>
     </head>
-    <body>
-        <h1 class="textAlignCenter mainHdrPadding">COVID-19 India</h1>
+    <body class="mainbody">
+        <div class="row">
+            <div class="col-12" style="background-color: #33ccff;">
+                <h1 class="textAlignCenter mainHdrPadding">COVID-19 India</h1>
+            </div> 
+        </div>
+        
 
         <section id="tabs">
             <div class="container">
