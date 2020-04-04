@@ -90,8 +90,7 @@ var chartJsPlotTopN = function (num ,chartId1, chartId2) {
         // PLOT 2
         chartJsScatteredPlotStateWise(sortedDescTopNStates, chartId2);
 
-        /*  State-Wise Daily Confirmed Cases  */
-        // statelist Top N
+        /*  State-Wise Daily Confirmed Cases TOP N */
         stateList = _.keys(_.countBy(sortedDescTopNStates, function (d) {
             return d['state'];
         }));

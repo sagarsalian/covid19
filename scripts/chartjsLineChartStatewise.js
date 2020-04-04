@@ -52,8 +52,32 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
             position: 'bottom',
             paddingBottom: 10,
             labels: {
-                //boxWidth: 40,
-                fontColor: 'black'
+                boxWidth: 50,
+                padding : 15,
+                fontColor: 'black',
+                fontSize: 20
+            },
+            // on click disable other legends plot feature !!
+            onClick: function (e, legendItem) {
+                var index = legendItem.datasetIndex;
+                var ci = this.chart;
+                var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+                ci.data.datasets.forEach(function (e, i) {
+                    var meta = ci.getDatasetMeta(i);
+
+                    if (i !== index) {
+                        if (!alreadyHidden) {
+                            meta.hidden = meta.hidden === null ? !meta.hidden : null;
+                        } else if (meta.hidden === null) {
+                            meta.hidden = true;
+                        }
+                    } else if (i === index) {
+                        meta.hidden = null;
+                    }
+                });
+
+                ci.update();
             }
         },
         responsive: true,
@@ -71,7 +95,6 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
         data: finalLineChartData,
         options: chartOptions
     });
-
 
 
 

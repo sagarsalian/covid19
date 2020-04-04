@@ -71,8 +71,10 @@ var chartJsScatteredPlotStateWise = function (data, chartId) {
             position: 'bottom',
             paddingBottom: 10,
             labels: {
-                boxWidth: 40,
-                fontColor: "black"
+                boxWidth: 50,
+                padding : 15,
+                fontColor: "black",
+                fontSize: 20
             }
         },
         hitRadius: 2,
