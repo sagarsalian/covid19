@@ -50,19 +50,27 @@ function getCuredCases(item) {
     return parseInt(item.Cured);
 }
 
+var getArrayIndex = function (a , b,arrSize){
+    if ( a < 0 && b < 0 ) { return [0 ,arrSize ,true]; }
+    else if ( a >= 0 && b < 0 ) { return [a ,arrSize ,false]; }
+    else if ( a >= 0 && b > 0 ) { return [a ,b ,false]; }
+    else return [0 ,arrSize ,true];
+};
 
-var chartJsPlotTopN = function (num ,chartId1, chartId2) {
+var chartJsPlotTopN = function (startIdx ,endIdx ,chartId1, chartId2) {
     var allFlag = false;
+    var startIndex = startIdx;
+    var endIndex = endIdx;
     d3.csv("./datafiles/covid_19_india.csv", function (data) {
         var storeData = data;
         var stateList = _.keys(_.countBy(storeData, function (d) {
             return d['State/UnionTerritory'];
         }));
-        if ( num < 0 ) {
-            // All states to be considered
-            num = stateList.length;
-            allFlag = true;
-        }
+        var IndexObj = getArrayIndex (startIndex ,endIndex ,stateList.length);
+        startIndex = IndexObj[0];
+        endIndex = IndexObj[1];
+        allFlag = IndexObj[2];
+        
         var dateList = _.keys(_.countBy(storeData, function (d) {
             return d.Date;
         }));
@@ -86,12 +94,14 @@ var chartJsPlotTopN = function (num ,chartId1, chartId2) {
             scatteredPlotDataSet.push(
                     {"state": statename, "confirmed": currConfirmedCnt, "recovered": currCuredCnt, "death": currDeathCnt, "total": totalCnt});
         });
-        var sortedDescTopNStates = _.sortBy(scatteredPlotDataSet, 'confirmed').reverse().slice(0, num);
+        var sortedDescTopNStates = _.sortBy(scatteredPlotDataSet, 'confirmed')
+                .reverse().slice(startIndex, endIndex);
         
         // PLOT 2
         chartJsScatteredPlotStateWise(sortedDescTopNStates, chartId2 ,allFlag);
 
         /*  State-Wise Daily Confirmed Cases TOP N */
+        
         stateList = _.keys(_.countBy(sortedDescTopNStates, function (d) {
             return d['state'];
         }));

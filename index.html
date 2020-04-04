@@ -9,6 +9,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="./css/thirdparty/bootstrap.min.css" >
         <link rel="stylesheet" href="./css/custom.css" >
+        <link rel="stylesheet" href="./css/customTabular.css" >
         <style>
             #d3chart1 {
                 text-align: center;
@@ -27,6 +28,11 @@
             }
             .redColor {
                 color:red
+            }
+            
+            #chart {
+                width: 1000px;
+                height: 600px;
             }
 
         </style>
@@ -85,7 +91,9 @@
                                     
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                                <center>
+                                    <div id="chart" ></div>
+                                </center>
                             </div>
                         </div>
 
@@ -102,10 +110,12 @@
         <script src="./scripts/thirdparty/d3/d3.v4.js" ></script>
         <script src="./scripts/thirdparty/d3/d3-scale-chromatic.v1.min.js" ></script>
         <script src="./scripts/thirdparty/underscore-min.js" ></script>
+        <script src="./scripts/thirdparty/d3/table.js" ></script>
         <script src="./scripts/utility.js" ></script>
         <script src="./scripts/chartjsWrapper.js" ></script>
         <script src="./scripts/chartjsScatteredPlot.js" ></script>
         <script src="./scripts/chartjsLineChartStatewise.js" ></script>
+        <script src="./scripts/tabularWrapper.js" ></script>
 
         <script>
             var d = document, root = d.documentElement, body = d.body;
@@ -116,19 +126,21 @@
  
             var stateFilterSelIdValue = document.getElementById("stateFilterSelId").value;
             if (stateFilterSelIdValue === "Top10") {
-                chartJsPlotTopN(10 ,'stateConfirmedLineChart', 'stateTotalChart');
+                chartJsPlotTopN(0 ,10 ,'stateConfirmedLineChart', 'stateTotalChart');
             } else {
-                chartJsPlotTopN(-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+                chartJsPlotTopN(-1 ,-1 ,'stateConfirmedLineChart', 'stateTotalChart');
             } 
             
             function mainFilter(arg){
                 var val = arg.value;
                 if (val === "Top10") {
-                    chartJsPlotTopN(10 ,'stateConfirmedLineChart', 'stateTotalChart');
+                    chartJsPlotTopN(0 ,10 ,'stateConfirmedLineChart', 'stateTotalChart');
                 } else {
-                    chartJsPlotTopN(-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+                    chartJsPlotTopN(-1 ,-1 ,'stateConfirmedLineChart', 'stateTotalChart');
                 }
             }
+            
+            tabularPlot("chart");
         </script>  
 
     </body>
