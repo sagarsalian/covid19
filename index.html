@@ -51,9 +51,19 @@
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-5"></div> 
+                                        <select id="stateFilterSelId" onchange="mainFilter(this);" class="col-2" style="height:50px;">
+                                            <option value="Top10" selected>Top 10 States</option>
+                                            <option value="All">All States</option>
+                                        </select>
+                                          
+                                    </div>
+                                </div>   
+                                <div class="chartPadding"></div>
                                 <h3 style="text-align: center;"><u>State-Wise Total <span class="redColor">Confirmed and Death Cases</span> </u></h3>
-                                <p style="text-align: center;"><span id="stateTotalId"> </span></p>
+                                <p style="text-align: center;"><span id="stateTotalSpanId"> </span></p>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-12">
@@ -61,19 +71,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="chartPadding"></div>   
-                                <h3 style="text-align: center;"><u>Top 10 States Daily <span class="redColor">Confirmed Cases</span> </u></h3>
-                                <p style="text-align: center;"><span id="stateDailyConfirmedTop10Id"> </span></p>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <canvas id="stateConfirmedLineChartTop10" width="1000" height="600"></canvas>
-                                        </div>                              
-                                    </div>
-                                </div>
-                                <div class="chartPadding"></div>       
+                                <div class="chartPadding"></div>                                             
+                                                                     
                                 <h3 style="text-align: center;"><u>State-Wise Daily <span class="redColor">Confirmed Cases</span> </u></h3>
-                                <p style="text-align: center;"><span id="stateDailyConfirmedId"> </span></p>
+                                <p style="text-align: center;"><span id="stateDailyConfirmSpanId"> </span></p>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-12">
@@ -82,9 +83,6 @@
                                     </div>
                                 </div>
                                     
-                                
-
-
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
@@ -115,8 +113,22 @@
                 hi = window.innerHeight || root.clientHeight || body.clientHeight;
             var addlnwid = 0;    
             $("#stateTotalChart,#stateConfirmedLineChart").width(wid + addlnwid); //.height(200);
-            chartJsPlot('stateConfirmedLineChart', 'stateTotalChart','stateConfirmedLineChartTop10');
-
+ 
+            var stateFilterSelIdValue = document.getElementById("stateFilterSelId").value;
+            if (stateFilterSelIdValue === "Top10") {
+                chartJsPlotTopN(10 ,'stateConfirmedLineChart', 'stateTotalChart');
+            } else {
+                chartJsPlotTopN(-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+            } 
+            
+            function mainFilter(arg){
+                var val = arg.value;
+                if (val === "Top10") {
+                    chartJsPlotTopN(10 ,'stateConfirmedLineChart', 'stateTotalChart');
+                } else {
+                    chartJsPlotTopN(-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+                }
+            }
         </script>  
 
     </body>

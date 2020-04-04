@@ -50,42 +50,25 @@ function getCuredCases(item) {
     return parseInt(item.Cured);
 }
 
-var chartJsPlot = function (chartId1, chartId2, chartId3) {
+
+var chartJsPlotTopN = function (num ,chartId1, chartId2) {
 
     d3.csv("./datafiles/covid_19_india.csv", function (data) {
         var storeData = data;
-        //storeData = storeData.filter(obj => obj.Sno > 317);
         var stateList = _.keys(_.countBy(storeData, function (d) {
             return d['State/UnionTerritory'];
         }));
+        if ( num < 0 ) {
+            // All states to be considered
+            num = stateList.length;
+        }
         var dateList = _.keys(_.countBy(storeData, function (d) {
             return d.Date;
         }));
         var dataPropsList = _.keys(storeData[0]);
-        $('#stateDailyConfirmedId,#stateTotalId,#stateDailyConfirmedTop10Id')
+        $('#stateDailyConfirmSpanId,#stateTotalSpanId')
                 .text("Updated on " + parseDateFmt(dateList[dateList.length - 1]));
         var statewiseJsonData = _.groupBy(storeData, 'State/UnionTerritory');
-
-        /*  State-Wise Daily Confirmed Cases  */
-
-        var finalDataSet = [];
-        _.each(stateList, function (statename) {
-            var filteredData = statewiseJsonData[statename];
-            var correctedData = fillMissingData(dateList, filteredData);
-            var confirmedArray = correctedData.map(obj => getConfirmedCases(obj));
-            finalDataSet.push({
-                label: statename,
-                lineTension: 0,
-                fill: false,
-                pointRadius: 3,
-                borderColor: stringToColour(statename),
-                data: confirmedArray
-            });
-
-        });
-
-        // PLOT 1
-        chartJsLineChartPlotStateWise(finalDataSet, dateList, chartId1);
 
         /*  State-Wise Total Confirmed and Death Cases  */
 
@@ -102,22 +85,23 @@ var chartJsPlot = function (chartId1, chartId2, chartId3) {
             scatteredPlotDataSet.push(
                     {"state": statename, "confirmed": currConfirmedCnt, "recovered": currCuredCnt, "death": currDeathCnt, "total": totalCnt});
         });
-
+        var sortedDescTopNStates = _.sortBy(scatteredPlotDataSet, 'confirmed').reverse().slice(0, num);
+        
         // PLOT 2
-        chartJsScatteredPlotStateDistrictWise(scatteredPlotDataSet, chartId2);
+        chartJsScatteredPlotStateWise(sortedDescTopNStates, chartId2);
 
-        /*  new */
-        var sortedDescTop10States = _.sortBy(scatteredPlotDataSet, 'total').reverse().slice(0, 11);
-        console.log(sortedDescTop10States);
-        var stateListTop10 = _.keys(_.countBy(sortedDescTop10States, function (d) {
+        /*  State-Wise Daily Confirmed Cases  */
+        // statelist Top N
+        stateList = _.keys(_.countBy(sortedDescTopNStates, function (d) {
             return d['state'];
         }));
-        var finalDataSetTop10 = [];
-        _.each(stateListTop10, function (statename) {
+
+        var finalDataSet = [];
+        _.each(stateList, function (statename) {
             var filteredData = statewiseJsonData[statename];
             var correctedData = fillMissingData(dateList, filteredData);
             var confirmedArray = correctedData.map(obj => getConfirmedCases(obj));
-            finalDataSetTop10.push({
+            finalDataSet.push({
                 label: statename,
                 lineTension: 0,
                 fill: false,
@@ -126,10 +110,9 @@ var chartJsPlot = function (chartId1, chartId2, chartId3) {
                 data: confirmedArray
             });
         });
-        // alert(JSON.stringify(finalDataSetTop10));
 
-        // PLOT 3
-        chartJsLineChartPlotStateWise(finalDataSetTop10, dateList, chartId3);
+        // PLOT 1
+        chartJsLineChartPlotStateWise(finalDataSet, dateList, chartId1);
 
 
     });

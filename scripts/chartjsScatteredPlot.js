@@ -1,6 +1,9 @@
 
-var chartJsScatteredPlotStateDistrictWise = function (data, chartId) {
+var chartJsScatteredPlotStateWise = function (data, chartId) {
 
+    if( window.scatteredChart!==undefined) {
+         window.scatteredChart.destroy();
+    } 
     var ctx = document.getElementById(chartId);
 
     var charttooltip = {
@@ -109,7 +112,7 @@ var chartJsScatteredPlotStateDistrictWise = function (data, chartId) {
         });
     });
 
-    var scatterChart = new Chart(ctx, {
+    window.scatteredChart = new Chart(ctx, {
         type: 'bubble', //scatter ,bubble
         data: {
             datasets: finalDataSet
@@ -117,7 +120,7 @@ var chartJsScatteredPlotStateDistrictWise = function (data, chartId) {
         options: chartOptions
 
     });
-
+    
 
 };
 

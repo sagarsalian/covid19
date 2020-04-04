@@ -3,6 +3,9 @@
 
 var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
 
+    if( window.lineChartState!==undefined) {
+         window.lineChartState.destroy();
+    }
     var speedCanvas = document.getElementById(chartId);
 
     Chart.defaults.global.defaultFontFamily = "Lato";
@@ -63,7 +66,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
         datasets: finalDataSet
     };
 
-    var lineChart = new Chart(speedCanvas, {
+    window.lineChartState = new Chart(speedCanvas, {
         type: 'line',
         data: finalLineChartData,
         options: chartOptions
