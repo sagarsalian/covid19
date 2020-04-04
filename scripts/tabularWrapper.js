@@ -86,7 +86,7 @@ var tabularPlot2 = function (chartId1) {
         // a sparklines plot
         function lines(test) {
            // var width = 100, height = 20;
-            var width = 100, height = 30;
+            var width = 100, height = 40;
             // alert("test" + maxConfirmedValue);
             var data = [];
             for (var i = 0; i < test.length; i++) {
