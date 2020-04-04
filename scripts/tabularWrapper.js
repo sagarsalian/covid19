@@ -62,7 +62,7 @@ var tabularPlot = function (chartId1) {
 	}
 ];
 
-    alert (width +","+height);
+    
     
     drawTable(myData, "#"+chartId1, {width: width, height: height}, valueFunc, textFunc, columns);
 };
