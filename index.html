@@ -30,6 +30,10 @@
                 color:red
             }
             
+            .selectionColor {
+                color : brown;
+            }
+            
            
         </style>
         <script>
@@ -56,7 +60,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-5"></div> 
-                                        <select id="stateFilterSelId" onchange="mainFilter(this);" class="col-3" style="height:50px;text-align: center;">
+                                        <select id="stateFilterSelId" onchange="mainFilter(this);" class="col-3 selectionColor" style="height:50px;text-align: center;">
                                             <option value="Top10" selected>Top 10 States</option>
                                             <option value="All">All States</option>
                                         </select>
@@ -87,9 +91,16 @@
                                     
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <center>
-                                    <div id="chart" ></div>
-                                </center>
+                                <h3 style="text-align: center;"><u>State-Wise <span class="redColor">Confirmed Cases</span> </u></h3>
+                                <p style="text-align: center;"><span id="tab2SpanId1"> </span></p>         
+                                <div class="container">
+                                    <div class="row">
+                                        <div>
+                                        <div id="table" class="col-9"></div>                        
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -118,7 +129,7 @@
             var wid = window.innerWidth || root.clientWidth || body.clientWidth,
                 hi = window.innerHeight || root.clientHeight || body.clientHeight;
             var addlnwid = 0;    
-            $("#stateTotalChart,#stateConfirmedLineChart").width(wid + addlnwid); //.height(200);
+            $("#stateTotalChart,#stateConfirmedLineChart,#table").width(wid + addlnwid); //.height(200);
  
             var stateFilterSelIdValue = document.getElementById("stateFilterSelId").value;
             if (stateFilterSelIdValue === "Top10") {
@@ -136,7 +147,7 @@
                 }
             }
             
-            tabularPlot("chart");
+            tabularPlot2("table");
         </script>  
 
     </body>

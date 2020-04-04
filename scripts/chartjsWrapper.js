@@ -87,9 +87,9 @@ var chartJsPlotTopN = function (startIdx ,endIdx ,chartId1, chartId2) {
             var confirmedArray = filteredData.map(obj => getConfirmedCases(obj));
             var deathArray = filteredData.map(obj => getDeathCases(obj));
             var curedArray = filteredData.map(obj => getCuredCases(obj));
-            var currConfirmedCnt = confirmedArray[confirmedArray.length - 1];
-            var currDeathCnt = deathArray[deathArray.length - 1];
-            var currCuredCnt = curedArray[curedArray.length - 1];
+            var currConfirmedCnt = (confirmedArray[confirmedArray.length - 1] === null)?0:confirmedArray[confirmedArray.length - 1];
+            var currDeathCnt = (deathArray[deathArray.length - 1] === null)?0:deathArray[deathArray.length - 1];
+            var currCuredCnt = (curedArray[curedArray.length - 1] === null)?0:curedArray[curedArray.length - 1];
             var totalCnt = parseInt(currConfirmedCnt) + parseInt(currCuredCnt) + parseInt(currDeathCnt);
             scatteredPlotDataSet.push(
                     {"state": statename, "confirmed": currConfirmedCnt, "recovered": currCuredCnt, "death": currDeathCnt, "total": totalCnt});
