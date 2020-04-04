@@ -44,7 +44,7 @@ var chartJsScatteredPlotStateWise = function (data, chartId ,allFlag) {
     var chartOptions = {
         scales: {
             xAxes: [{
-                    type: 'linear',
+                    type: window.lineChartScalingType,
                     position: 'bottom',
                     scaleLabel: {
                         display: true,
@@ -58,6 +58,7 @@ var chartJsScatteredPlotStateWise = function (data, chartId ,allFlag) {
                     }
                 }],
             yAxes: [{
+                    type: window.lineChartScalingType,
                     scaleLabel: {
                         display: true,
                         labelString: 'Total Death Cases',

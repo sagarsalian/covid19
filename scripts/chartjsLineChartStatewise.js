@@ -38,7 +38,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,a
                     }
                 }],
             yAxes: [{
-                    // type: 'logarithmic',
+                    type: window.lineChartScalingType, //'logarithmic',
                     scaleLabel: {
                         display: true,
                         labelString: 'Daily Confirmed Cases',
