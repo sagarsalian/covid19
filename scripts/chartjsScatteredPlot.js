@@ -1,10 +1,22 @@
 
-var chartJsScatteredPlotStateWise = function (data, chartId) {
+var chartJsScatteredPlotStateWise = function (data, chartId ,allFlag) {
 
     if( window.scatteredChart!==undefined) {
          window.scatteredChart.destroy();
     } 
     var ctx = document.getElementById(chartId);
+    
+    var legendLabel = {
+        boxWidth: 50,
+        padding: 15,
+        fontColor: 'black',
+        fontSize: 20
+    };
+    if (allFlag === true) {
+        legendLabel = {
+            fontColor: 'black'
+        };
+    }
 
     var charttooltip = {
         callbacks: {
@@ -70,12 +82,7 @@ var chartJsScatteredPlotStateWise = function (data, chartId) {
             display: true,
             position: 'bottom',
             paddingBottom: 10,
-            labels: {
-                boxWidth: 50,
-                padding : 15,
-                fontColor: "black",
-                fontSize: 20
-            }
+            labels: legendLabel
         },
         hitRadius: 2,
         responsive: true, // Instruct chart js to respond nicely.

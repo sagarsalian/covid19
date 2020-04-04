@@ -52,7 +52,7 @@ function getCuredCases(item) {
 
 
 var chartJsPlotTopN = function (num ,chartId1, chartId2) {
-
+    var allFlag = false;
     d3.csv("./datafiles/covid_19_india.csv", function (data) {
         var storeData = data;
         var stateList = _.keys(_.countBy(storeData, function (d) {
@@ -61,6 +61,7 @@ var chartJsPlotTopN = function (num ,chartId1, chartId2) {
         if ( num < 0 ) {
             // All states to be considered
             num = stateList.length;
+            allFlag = true;
         }
         var dateList = _.keys(_.countBy(storeData, function (d) {
             return d.Date;
@@ -88,7 +89,7 @@ var chartJsPlotTopN = function (num ,chartId1, chartId2) {
         var sortedDescTopNStates = _.sortBy(scatteredPlotDataSet, 'confirmed').reverse().slice(0, num);
         
         // PLOT 2
-        chartJsScatteredPlotStateWise(sortedDescTopNStates, chartId2);
+        chartJsScatteredPlotStateWise(sortedDescTopNStates, chartId2 ,allFlag);
 
         /*  State-Wise Daily Confirmed Cases TOP N */
         stateList = _.keys(_.countBy(sortedDescTopNStates, function (d) {
@@ -111,7 +112,7 @@ var chartJsPlotTopN = function (num ,chartId1, chartId2) {
         });
 
         // PLOT 1
-        chartJsLineChartPlotStateWise(finalDataSet, dateList, chartId1);
+        chartJsLineChartPlotStateWise(finalDataSet, dateList, chartId1 ,allFlag);
 
 
     });

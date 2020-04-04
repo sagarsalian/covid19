@@ -1,7 +1,7 @@
 
 /* global _, Chart */
 
-var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
+var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,allFlag) {
 
     if( window.lineChartState!==undefined) {
          window.lineChartState.destroy();
@@ -10,6 +10,18 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
 
     Chart.defaults.global.defaultFontFamily = "Lato";
     Chart.defaults.global.defaultFontSize = 12;
+    
+    var legendLabel = {
+        boxWidth: 50,
+        padding: 15,
+        fontColor: 'black',
+        fontSize: 20
+    };
+    if (allFlag === true) {
+        legendLabel = {
+            fontColor: 'black'
+        };
+    }
 
     var chartOptions = {
         scales: {
@@ -51,12 +63,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId) {
             display: true,
             position: 'bottom',
             paddingBottom: 10,
-            labels: {
-                boxWidth: 50,
-                padding : 15,
-                fontColor: 'black',
-                fontSize: 20
-            },
+            labels: legendLabel,
             // on click disable other legends plot feature !!
             onClick: function (e, legendItem) {
                 var index = legendItem.datasetIndex;
