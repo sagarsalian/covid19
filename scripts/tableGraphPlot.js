@@ -66,7 +66,7 @@ var tabularLineGraphPrint = function (chartId ,columns ,data ,maxValue  ,colMapC
             .each(lines);
     
     // update (add a column with graphs)
-    thead.append("th").text('Log Graphs');
+    /*thead.append("th").text('Log Graphs');
     trows.selectAll("td.graph2")
             //use a class so you don't re-select the existing <td> elements
             .data(function (d) {
@@ -76,29 +76,30 @@ var tabularLineGraphPrint = function (chartId ,columns ,data ,maxValue  ,colMapC
             .append("td")
             .attr("class", "graph2")
             .each(lines2);
+            */
 
 
     // a sparklines plot
     function lines(test) {
         // var width = 100, height = 20;
-        var width = 150, height = 50;
+        var width = 280, height = 50;
         // alert("test" + maxConfirmedValue);
         var data = [];
         for (var i = 0; i < test.length; i++) {
             data[i] = {
                 'x': i,
-                'y': +getNormalizedValue(0, maxValue, 0, 150, test[i])
+                'y': +getNormalizedValue(0, maxValue, 0, 250, test[i])
             };
         }
         //alert("test2" + JSON.stringify(data));
 
         var x = d3.scaleLinear()
-                .range([0, width - 10])
-                .domain([0, 10]);
+                .range([0, width -20])
+                .domain([0, 6]);
 
         var y = d3.scaleLinear()
                 .range([height, 0])
-                .domain([1, 150]);
+                .domain([1, 250]);
 
         var line = d3.line()
                 .x(function (d) {
@@ -108,13 +109,22 @@ var tabularLineGraphPrint = function (chartId ,columns ,data ,maxValue  ,colMapC
                     return y(d.y);
                 });
 
-        d3.select(this).append('svg')
+        var svg = d3.select(this).append('svg');
+                svg
                 .attr('width', width)
                 .attr('height', height)
                 .append('path')
                 .attr('class', 'line')
                 .datum(data)
                 .attr('d', line);
+    
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x));
+        svg.append("g")
+                .attr("class", "y axis")
+                .call(d3.axisLeft(y));
 
     }
     
