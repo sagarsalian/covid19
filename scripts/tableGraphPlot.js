@@ -1,8 +1,20 @@
 
 /* global d3 */
+var getColorCodeConfirmThrsh = function (thrshval) {
+    if (thrshval > 10 && thrshval <=50){
+        return "#ff8c00";
+    } else if (thrshval > 50) {
+        return "red";   
+    } else {
+        return "black";
+    }
+};
 
-var tabularLineGraphPrint = function (chartId ,columns ,data ,maxValue ,linePos ,colMapCallBack) {
+var tabularLineGraphPrint = function (chartId ,columns ,data ,maxValue  ,colMapCallBack) {
 
+    var linePos = columns.indexOf("confirmedArray");
+    var incrCases = columns.indexOf("lastIncreasedValue");
+    
     // create table
     var table = d3.select("#"+chartId).append("table");
 
@@ -33,6 +45,11 @@ var tabularLineGraphPrint = function (chartId ,columns ,data ,maxValue ,linePos 
             .append("td")
             .text(function (d, i) {
                 return d;
+            }).style('color', function(d ,i){
+                if ( i === incrCases) {
+                    return getColorCodeConfirmThrsh(d);
+                }
+                return "black";
             });
 
     // update (add a column with graphs)
