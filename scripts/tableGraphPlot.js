@@ -82,7 +82,7 @@ var tabularLineGraphPrint = function (chartId ,columns ,data ,maxValue  ,colMapC
     // a sparklines plot
     function lines(test) {
         // var width = 100, height = 20;
-        var width = 280, height = 50;
+        var width = 280, height = 80;
         // alert("test" + maxConfirmedValue);
         var data = [];
         for (var i = 0; i < test.length; i++) {
@@ -99,7 +99,7 @@ var tabularLineGraphPrint = function (chartId ,columns ,data ,maxValue  ,colMapC
 
         var y = d3.scaleLinear()
                 .range([height, 0])
-                .domain([1, 250]);
+                .domain([0, 250]);
 
         var line = d3.line()
                 .x(function (d) {
