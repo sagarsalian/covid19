@@ -7,220 +7,279 @@
 
         <title>COVID19 Dashboard India</title>
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="./css/thirdparty/bootstrap.min.css" >
-        <link rel="stylesheet" href="./css/custom.css" >
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
         <link rel="stylesheet" href="./css/customTabular.css" >
-
         <style>
-            .mainbody {
-                background: whitesmoke !important; 
+            body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+            body {font-size:16px;}
+            .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+            .w3-half img:hover{opacity:1}
+            .myFont {
+                font-size:30px;
             }
-            
-            .textAlignCenter {
+            .topSmallMenu {
+                font-size: 40px;
+            }
+            .sideBarMenu{
+                font-size: 30px;
+            }
+            .filters {
+                height:60px;
                 text-align: center;
             }
-            .mainHdrPadding {
-                padding: 5px;
-                background-color: #33ccff;
-                width: 100%;
+            .chartSizeDiv {
+                position: relative;              
+                height:800px; 
+                width:1000px;
+            }
+            .txtCenter {
+                text-align: center;
+            }
+            .updateDateTime {
+                margin: 8px;
+            }
+            .headerPadding {
+                margin-top :10px; 
             }
             
-            .chartPadding {
-                padding: 10px;
-            }
-            .redColor {
-                color:red ;
-            }
-            
-            .selectionColor {
-                color : brown;
-            }
-            
-                       
         </style>
-        <style>
-            h1 {
-                font-weight: 300;
-                display: inline-block;
-                padding-bottom: 5px;
-                position: relative;
-                text-align: center;
-            }
-            h1:before{
-                content: "";
-                position: absolute;
-                width: 50%;
-                height: 1px;
-                padding: 2px;
-                bottom: 0;
-                left: 25%;
-                border-bottom: 3px solid #0275d8;
-            }
-            h3 {
-                font-weight: 300;
-                display: inline-block;
-                padding-bottom: 5px;
-                position: relative;
-                text-align: center;
-            }
-            h3:before{
-                content: "";
-                position: absolute;
-                width: 50%;
-                height: 1px;
-                bottom: 0;
-                left: 25%;
-                border-bottom: 2px solid purple;
-            }
-
-        </style>
-
     </head>
-    <body class="mainbody">
-        <center>
-       <h1 id="mainheader" class="display-4">COVID-19 India</h1>
-        <p>&#9400; RS Prem </p>
-       </center>
-        <section id="tabs" >
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 ">
-                        <nav>
-                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Graphs</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Tabular</a>
-                            </div>
-                        </nav>
-                        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                <div class="chartPadding"></div>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-5"></div> 
-                                        <select id="stateFilterSelId" onchange="onChangeMainFilter(this);" 
-                                                class="col-3 selectionColor" 
-                                                style="height:50px;text-align: center;">
-                                            <option value="Top10" selected>Top 10 States</option>
-                                            <option value="All">All States</option>
-                                        </select>
-                                          
-                                    </div>
-                                </div>
-                               <div class="chartPadding"></div>
-                               
-                               <div class="container">
-                                    <div class="row">
-                                        <div class="col-5"></div>
-                                        <select id="scalingSelId" onchange="onChangeScaling(this);" 
-                                                class="col-3 selectionColor" 
-                                                style="height:50px;text-align: center;">
-                                            <option value="linear" selected>Linear</option>
-                                            <option value="logarithmic">Logarithmic</option>
-                                        </select>                                         
-                                    </div>
-                                </div>    
-                                <div class="chartPadding"></div>
-                                <center><h3>State-Wise Total <span class="redColor">Confirmed and Death Cases</span> </h3></center>
-                                <p style="text-align: center;"><span id="stateTotalSpanId"> </span></p>                              
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <canvas id="stateTotalChart" width="1000" height="600" ></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="chartPadding"></div>
-                                <center><h3 style="text-align: center;">State-Wise Daily <span class="redColor">Confirmed Cases</span> </h3></center>
-                                <p style="text-align: center;"><span id="stateDailyConfirmSpanId"> </span></p>                                                                 
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <canvas id="stateConfirmedLineChart" width="1000" height="600"></canvas>
-                                        </div>                              
-                                    </div>
-                                </div>
-                                    
-                            </div>
-                            
-                            <!-- second tab -->
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <div class="chartPadding"></div>
-                                <center><h3 style="text-align: center;">State-Wise <span class="redColor">Confirmed Cases</span> </h3></center>
-                                <p style="text-align: center;"><span id="tab2SpanId1"> </span></p>
-                                <div class="chartPadding"></div>
-                                <div class="container">
-                                    <div class="row">
-                                        <div>
-                                        <div id="table" class="col-9"></div>                        
-                                        </div>
-                                    </div>
-                                </div>
+    <body>
 
-                            </div>
-                            
-                            
+        <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+            <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+            <div class="w3-container">
+                <h3 class="w3-padding-64 sideBarMenu"><b>RS Prem<br></b></h3>
+            </div>
+            <div class="w3-bar-block">
+                <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white sideBarMenu">Home</a> 
+                <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white sideBarMenu">Designers</a> 
+                <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white sideBarMenu">Contact US</a>
+            </div>
+        </nav> 
+
+        <!-- Top menu on small screens -->
+        <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+            <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+            <span class="topSmallMenu">RS Prem</span>
+        </header>
+
+        <!-- Overlay effect when opening sidebar on small screens -->
+        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+        <!-- !PAGE CONTENT! -->
+        <div class="w3-main" style="margin-left:340px;margin-right:40px;width:1000px;">
+
+            <!-- Header -->
+            <div class="w3-container" style="margin-top:80px" id="showcase">
+                <h1 class="w3-jumbo"><b>COVID-19 India </b></h1>
+                <h1 class="w3-xxxlarge w3-text-red"><b>Dashboard </b></h1>
+                <p>&#9400; RS Prem </p>
+                <hr style="width:50px;border:5px solid red" class="w3-round">
+            </div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist" style="position: relative;width:1000px;" >
+                <li class="nav-item">
+                    <a class="nav-link active myFont" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All States</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link myFont" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">State</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link myFont" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">StateTabular</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent" style="position: relative; width:1000px;">
+                <!-- TAB 1-->
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="txtCenter w3-xxlarge w3-text-red headerPadding">State-Wise Daily Confirmed Cases</h3>
+                    <div class="txtCenter updateDateTime"></div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3"></div> 
+                            <select id="tab1Fltr1" onchange="onChangeTab1MainFilter(this ,'topstategrouping' ,'tab1Fltr1' ,'tab1Fltr2');" 
+                                    class="col-3 filters" 
+                                    >
+                            </select>
+                            <select id="tab1Fltr2" onchange="onChangeTab1MainFilter(this ,'scaling' ,'tab1Fltr1' ,'tab1Fltr2');" 
+                                    class="col-3 filters" 
+                                    style="margin-left: 10px;">
+                            </select>
                         </div>
-
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="chart-container chartSizeDiv" >
+                            <canvas id="lineChart1" ></canvas>
+                        </div>
+                        <p style="text-align: center;color:darkred"> Click on Legend value to View Single Line Graph </p>
+                    </div>
+                    <h3 class="txtCenter w3-xxlarge w3-text-red headerPadding">State-Wise Total Confirmed and Death Cases</h3>
+                    <div class="txtCenter updateDateTime"></div>
+                    <div class="w3-row-padding">
+                        <div class="chart-container chartSizeDiv" >
+                            <canvas id="scatteredChart1" ></canvas>
+                        </div>
+                        <p style="text-align: center;color:darkred"> Click on Legend value to Disable it </p>
+                    </div>
+                </div>
+                <!-- TAB 2-->
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h3 class="txtCenter w3-xxlarge w3-text-red headerPadding">State-Wise Daily Confirmed/Cured/Death Cases</h3>
+                    <div class="txtCenter updateDateTime"></div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3"></div> 
+                            <select id="tab2Fltr1" onchange="onChangeTab2MainFilter(this ,'statefiltering' ,'tab2Fltr1' ,'tab2Fltr2');" 
+                                    class="col-3 filters" 
+                            >
+                            </select>
+                            <select id="tab2Fltr2" onchange="onChangeTab2MainFilter(this ,'scaling' ,'tab2Fltr1' ,'tab2Fltr2');" 
+                                    class="col-3 filters" 
+                                    style="margin-left: 10px;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding">
+                        <div class="chart-container chartSizeDiv" >
+                            <canvas id="lineChart2" ></canvas>
+                        </div>
+                        <p style="text-align: center;color:darkred"> Click on Legend value to View Single Line Graph </p>
+                    </div>
+                </div>
+                <!-- TAB 3-->
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <h3 class="txtCenter w3-xxlarge w3-text-red headerPadding">State-Wise Confirmed Cases</h3>
+                    <div class="txtCenter updateDateTime"></div>
+                    <div class="container">
+                        <div class="row">
+                            <div>
+                                <div id="tabular1" class="col-12"></div>                        
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+
+
+
+
+            <!-- Designers -->
+
+            <div class="w3-container" id="designers" style="margin-top:75px">
+                <h1 class="w3-xxxlarge w3-text-red"><b>Designers.</b></h1>
+                <hr style="width:50px;border:5px solid red" class="w3-round">
+                <p>The best team in the world.</p>
+                <p>
+                </p>
+                <p><b>Our designers are thoughtfully chosen</b></p>
+            </div>
+            
+            <!-- Contact Us -->
+
+            <div class="w3-container" id="contact" style="margin-top:75px">
+                <h1 class="w3-xxxlarge w3-text-red"><b>Contact US.</b></h1>
+                <hr style="width:50px;border:5px solid red" class="w3-round">
+                <p>RS Prem.</p>
+                <p>
+                </p>
+                
+            </div>
+
+        </div>
+
+        <!-- W3.CSS Container -->
+        <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px;width:1000px;">&#9400; RS Prem<p class="w3-right"></p></div>
+
+        <script>
+            // Script to open and close sidebar
+            function w3_open() {
+                document.getElementById("mySidebar").style.display = "block";
+                document.getElementById("myOverlay").style.display = "block";
+            }
+
+            function w3_close() {
+                document.getElementById("mySidebar").style.display = "none";
+                document.getElementById("myOverlay").style.display = "none";
+            }
+
+            // Modal Image Gallery
+            function onClick(element) {
+                document.getElementById("img01").src = element.src;
+                document.getElementById("modal01").style.display = "block";
+                var captionText = document.getElementById("caption");
+                captionText.innerHTML = element.alt;
+            }
+
+        </script>
+
 
 
         <script src="./scripts/thirdparty/chart.min.js"></script>
-        <script src="./scripts/thirdparty/jquery-3.4.1.slim.min.js"></script>
-        <script src="./scripts/thirdparty/popper.min.js"></script>
-        <script src="./scripts/thirdparty/bootstrap.min.js" ></script>
         <script src="./scripts/thirdparty/d3/d3.v4.js" ></script>
         <script src="./scripts/thirdparty/d3/d3-scale-chromatic.v1.min.js" ></script>
         <script src="./scripts/thirdparty/underscore-min.js" ></script>
-        <script src="./scripts/thirdparty/d3/table.js" ></script>
         <script src="./scripts/utility.js" ></script>
-        <script src="./scripts/chartjsScatteredPlot.js" ></script>
-        <script src="./scripts/chartjsLineChartStatewise.js" ></script>
-        <script src="./scripts/chartjsWrapper.js" ></script>
-        <script src="./scripts/tableGraphPlot.js" ></script>
-        <script src="./scripts/tabularWrapper.js" ></script>
+        <script src="./scripts/common/chartjsLineChartGraph.js" ></script>
+        <script src="./scripts/common/chartjsScatteredChartGraph.js" ></script>
+        <script src="./scripts/common/tableGraphPlot.js" ></script>
+        <script src="./scripts/common/dataProcessing.js" ></script>
 
         <script>
             var d = document, root = d.documentElement, body = d.body;
             var wid = window.innerWidth || root.clientWidth || body.clientWidth,
-                hi = window.innerHeight || root.clientHeight || body.clientHeight;
-            var addlnwid = 0;    
-            $("#stateTotalChart,#stateConfirmedLineChart,#table").width(wid + addlnwid); //.height(200);
- 
-            var stateFilterSelIdValue = document.getElementById("stateFilterSelId").value;
-            if (stateFilterSelIdValue === "Top10") {
-                chartJsPlotTopN(0 ,10 ,'stateConfirmedLineChart', 'stateTotalChart');
-            } else {
-                chartJsPlotTopN(-1 ,-1 ,'stateConfirmedLineChart', 'stateTotalChart');
-            }
-            
-            var scalingSelIdValue = document.getElementById("scalingSelId").value;
-            window.lineChartScalingType = scalingSelIdValue;
-            
-            //function selectChartPlot
-            function onChangeMainFilter(arg){
-                var val = arg.value;
-                if (val === "Top10") {
-                    chartJsPlotTopN(0 ,10 ,'stateConfirmedLineChart', 'stateTotalChart');
+                    hi = window.innerHeight || root.clientHeight || body.clientHeight;
+
+            $(document).ready(function () {
+                populateSelectList();
+                dataProcessingApi();
+            });
+
+
+
+            function onChangeTab1MainFilter(arg ,filterType ,filterId1 ,filterId2) {
+                var fltr1Val = "";
+                var fltr2Val = "";
+                if (filterType === "topstategrouping") {
+                    fltr1Val = arg.value;
+                    fltr2Val = document.getElementById(filterId2).value;                        
                 } else {
-                    chartJsPlotTopN(-1 ,-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+                    //scaling
+                    fltr1Val = document.getElementById(filterId1).value;
+                    fltr2Val = arg.value;
                 }
+                dataUpdateApi("allStatesConfirmLineChart" ,fltr1Val ,fltr2Val);
+                dataUpdateApi("allStatesConfirmScatteredChart" ,fltr1Val ,fltr2Val);
+                
             }
             
-            function onChangeScaling(arg){
-                var scaleValue = arg.value;
-                var val = document.getElementById("stateFilterSelId").value;
-                window.lineChartScalingType = scaleValue;
-                if (val === "Top10") {
-                    chartJsPlotTopN(0 ,10 ,'stateConfirmedLineChart', 'stateTotalChart');
+            function onChangeTab2MainFilter(arg ,filterType ,filterId1 ,filterId2) {
+                var fltr1Val = "";
+                var fltr2Val = "";
+                if (filterType === "statefiltering") {
+                    fltr1Val = arg.value;
+                    fltr2Val = document.getElementById(filterId2).value;                        
                 } else {
-                    chartJsPlotTopN(-1 ,-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+                    //scaling
+                    fltr1Val = document.getElementById(filterId1).value;
+                    fltr2Val = arg.value;
                 }
+                dataUpdateApi("stateWiseAllCatgLineChart" ,fltr1Val ,fltr2Val);
+                
             }
-                       
-            tabularPlot("table");
+            
+            
+
         </script>  
 
     </body>

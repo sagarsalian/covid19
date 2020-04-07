@@ -19,13 +19,14 @@ var tabularPlot = function (chartId1) {
         var storeData = data;
         var stateList = _.keys(_.countBy(storeData, function (d) {
             return d['State/UnionTerritory'];
-        }));
+        }));        
         var dateList = _.keys(_.countBy(storeData, function (d) {
             return d.Date;
         }));
         $('#tab2SpanId1').text("Updated on " + parseDateFmt(dateList[dateList.length - 1]));
         var statewiseJsonData = _.groupBy(storeData, 'State/UnionTerritory');
         
+        // Tab 1
         var tabularDataSet = [];
         _.each(stateList, function (statename) {
             var filteredData = statewiseJsonData[statename];
@@ -41,6 +42,7 @@ var tabularPlot = function (chartId1) {
         });
         var maxConfirmedValue = getMaxValue(tabularDataSet,'maxConfirmed');
         var sortedDescTopNStates = _.sortBy(tabularDataSet, 'maxConfirmed').reverse();// .slice(startIndex, endIndex);
+        
         var data = [];
         var serialNo=0;
         _.each(sortedDescTopNStates, function (myData) {
@@ -50,6 +52,7 @@ var tabularPlot = function (chartId1) {
         });
 
         tabularLineGraphPrint(chartId1 ,columns ,data ,maxConfirmedValue ,columnMapFn1);
+        
 
     });
 

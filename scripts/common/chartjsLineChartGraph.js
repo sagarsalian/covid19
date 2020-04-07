@@ -1,25 +1,28 @@
 
-/* global _, Chart */
+/* global _, Chart, lineChartVar */
 
-var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,maxVal ,allFlag ,id) {
+var chartJsLineChartGraph = function (finalDataSet, dateList, chartId, allFlag ,addlnObj ,updateType) {
 
-    if( id!==undefined) {
-         id.destroy();
-    }
-    var speedCanvas = document.getElementById(chartId);
+    /*
+     if( id!==undefined) {
+     id.destroy();
+     }*/
+    var yaxisScaleType = addlnObj.yaxisScale;
+    var chartElemt = document.getElementById(chartId);
 
     Chart.defaults.global.defaultFontFamily = "Lato";
     Chart.defaults.global.defaultFontSize = 12;
-    
+
     var legendLabel = {
         boxWidth: 50,
         padding: 15,
         fontColor: 'black',
-        fontSize: 20
+        fontSize: 22
     };
     if (allFlag === true) {
         legendLabel = {
-            fontColor: 'black'
+            fontColor: 'black',
+            fontSize: 17
         };
     }
 
@@ -35,11 +38,11 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,m
                     }, ticks: {
                         padding: 5,
                         fontSize: 15
-                        
+
                     }
                 }],
             yAxes: [{
-                    type: window.lineChartScalingType, //'logarithmic',
+                    type: yaxisScaleType, //'logarithmic',
                     scaleLabel: {
                         display: true,
                         labelString: 'Daily Confirmed Cases',
@@ -49,7 +52,7 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,m
                         //beginAtZero: true,
                         padding: 10,
                         fontSize: 15,
-                        callback: function(value, index, values) {//needed to change the scientific notation results from using logarithmic scale
+                        callback: function (value, index, values) {//needed to change the scientific notation results from using logarithmic scale
                             return Number(value.toString());//pass tick values as a string into Number function
                         }
                     }
@@ -95,17 +98,35 @@ var chartJsLineChartPlotStateWise = function (finalDataSet ,dateList ,chartId ,m
         maintainAspectRatio: false
     };
 
-  // Data mapping 
+    // Data mapping 
     var finalLineChartData = {
         labels: dateList,
         datasets: finalDataSet
     };
 
-    id = new Chart(speedCanvas, {
+    /*function removeLineChartData() {
+        alert(lineChartVar.data.datasets.length);
+        
+        for (var i = 0; i < lineChartVar.data.datasets.length; i++) {
+            lineChartVar.data.labels = [];
+            lineChartVar.data.datasets.forEach((dataset) => {
+                dataset.data = [];
+            });
+            lineChartVar.update();
+        }
+    }
+    
+    if (updateType === 'update') {
+        alert("update");
+        removeLineChartData();
+    }*/
+
+    var lineChartVar = new Chart(chartElemt, {
         type: 'line',
         data: finalLineChartData,
         options: chartOptions
     });
+
 
 
 

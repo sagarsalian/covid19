@@ -2,54 +2,6 @@
 
 /* global d3, _ */
 
-// line chart fill missing data
-function fillMissingData(dateList, filteredData) {
-    var newArray = [];
-    // Fill all date's corresponding value points with zero
-    _.each(dateList, function (s1) {
-        var myobj = new Object();
-        myobj.Confirmed = 0;
-        myobj.Date = s1;
-        newArray.push(myobj);
-    });
-    // Fill valid point values
-    var i = 0;
-    _.each(filteredData, function (s2) {//O(n*2) operation            
-        var myobj = new Object();
-        myobj.Confirmed = s2.Confirmed;
-        myobj.Date = s2.Date;
-        for (var h = 0; h < newArray.length; h++) {
-            var indexStart = (h - 1) < 0 ? 0 : (h - 1);
-            var indexEnd = h;
-            if (newArray[h].Date === s2.Date) {
-                newArray[h] = myobj;
-            }
-        }
-        i = i + 1;
-    });
-
-    return newArray;
-}
-
-// Array to be passed to get SUM of it
-var sum = function (numbers) {
-    return _.reduce(numbers, function (sum, n) {
-        return sum + n;
-    }, 0);
-};
-
-function getConfirmedCases(item) {
-    return parseInt(item.Confirmed);
-}
-
-function getDeathCases(item) {
-    return parseInt(item.Deaths);
-}
-
-function getCuredCases(item) {
-    return parseInt(item.Cured);
-}
-
 var getArrayIndex = function (a , b,arrSize){
     if ( a < 0 && b < 0 ) { return [0 ,arrSize ,true]; }
     else if ( a >= 0 && b < 0 ) { return [a ,arrSize ,false]; }
@@ -57,13 +9,7 @@ var getArrayIndex = function (a , b,arrSize){
     else return [0 ,arrSize ,true];
 };
 
-var getSortedStateList = function (jsonarr) {
-    var sortedStateList = [];
-    _.each(jsonarr, function (r) {
-        sortedStateList.push(r.state);
-    });
-    return sortedStateList;
-};
+
 
 var chartJsPlotTopN = function (startIdx ,endIdx ,chartId1, chartId2) {
     var allFlag = false;
@@ -108,6 +54,7 @@ var chartJsPlotTopN = function (startIdx ,endIdx ,chartId1, chartId2) {
         var sortedStateList = getSortedStateList(sortedDescTopNStates); 
         // PLOT 2        
         chartJsScatteredPlotStateWise(sortedDescTopNStates, chartId2, sortedStateList, allFlag);
+        
 
         /*  State-Wise Daily Confirmed Cases TOP N */
 
@@ -130,9 +77,9 @@ var chartJsPlotTopN = function (startIdx ,endIdx ,chartId1, chartId2) {
         var maxValInDs = obj1[maxValInDsLen-1].Confirmed;
                
         // PLOT 1
-        chartJsLineChartPlotStateWise(finalDataSet ,dateList ,chartId1 ,maxValInDs ,allFlag);
-
-
+        chartJsLineChartPlotStateWise(finalDataSet ,dateList ,chartId1 ,maxValInDs ,allFlag ,window.lineChartState1);
+        
+               
     });
 };
 

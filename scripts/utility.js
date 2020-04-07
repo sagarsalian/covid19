@@ -55,5 +55,76 @@ var parseDateFmt = function(dt) {
     return retDate;
 };
 
+//
+var getSortedStateList = function (jsonarr) {
+    var sortedStateList = [];
+    _.each(jsonarr, function (r) {
+        sortedStateList.push(r.state);
+    });
+    return sortedStateList;
+};
+
+// Array to be passed to get SUM of it
+var sum = function (numbers) {
+    return _.reduce(numbers, function (sum, n) {
+        return sum + n;
+    }, 0);
+};
+
+
+// line chart fill missing data
+function fillMissingData(dateList, filteredData) {
+    var newArray = [];
+    // Fill all date's corresponding value points with zero
+    _.each(dateList, function (s1) {
+        var myobj = new Object();
+        myobj.Confirmed = 0;
+        myobj.Deaths = 0;
+        myobj.Cured = 0;
+        myobj.Date = s1;
+        newArray.push(myobj);
+    });
+    // Fill valid point values
+    var i = 0;
+    _.each(filteredData, function (s2) {//O(n*2) operation            
+        var myobj = new Object();
+        myobj.Confirmed = s2.Confirmed;
+        myobj.Deaths = s2.Deaths;
+        myobj.Cured = s2.Cured;
+        myobj.Date = s2.Date;
+        for (var h = 0; h < newArray.length; h++) {
+            var indexStart = (h - 1) < 0 ? 0 : (h - 1);
+            var indexEnd = h;
+            if (newArray[h].Date === s2.Date) {
+                newArray[h] = myobj;
+            }
+        }
+        i = i + 1;
+    });
+
+    return newArray;
+}
+
+function getConfirmedCases(item) {
+    return parseInt(item.Confirmed);
+}
+
+function getDeathCases(item) {
+    return parseInt(item.Deaths);
+}
+
+function getCuredCases(item) {
+    return parseInt(item.Cured);
+}
+
+function getConfirmedAndDeathCases(item, maxValue) {
+        var points = new Object();
+        points.x = parseInt(item.confirmed); 
+        points.y = parseInt(item.death); 
+        var pointValue = (points.x + points.y);
+        points.r = getNormalizedValue(0, maxValue, 5, 20, pointValue);
+        // points.other = item.district;
+        return points;
+    }
 
 

@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>COVID19 Dashboard India</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="./css/thirdparty/bootstrap.min.css" >
+        <link rel="stylesheet" href="./css/custom.css" >
+        <link rel="stylesheet" href="./css/customTabular.css" >
+
+        <style>
+            .mainbody {
+                background: whitesmoke !important; 
+            }
+            
+            .textAlignCenter {
+                text-align: center;
+            }
+            .mainHdrPadding {
+                padding: 5px;
+                background-color: #33ccff;
+                width: 100%;
+            }
+            
+            .chartPadding {
+                padding: 10px;
+            }
+            .redColor {
+                color:red ;
+            }
+            
+            .selectionColor {
+                color : brown;
+            }
+            
+            canvas {
+                height:800px!important;
+            }
+            
+                       
+        </style>
+        <style>
+            h1 {
+                font-weight: 300;
+                display: inline-block;
+                padding-bottom: 5px;
+                position: relative;
+                text-align: center;
+            }
+            h1:before{
+                content: "";
+                position: absolute;
+                width: 50%;
+                height: 1px;
+                padding: 2px;
+                bottom: 0;
+                left: 25%;
+                border-bottom: 3px solid #0275d8;
+            }
+            h3 {
+                font-weight: 300;
+                display: inline-block;
+                padding-bottom: 5px;
+                position: relative;
+                text-align: center;
+            }
+            h3:before{
+                content: "";
+                position: absolute;
+                width: 50%;
+                height: 1px;
+                bottom: 0;
+                left: 25%;
+                border-bottom: 2px solid purple;
+            }
+
+        </style>
+
+    </head>
+    <body class="mainbody">
+        <center>
+       <h1 id="mainheader" class="display-4">COVID-19 India</h1>
+        <p>&#9400; RS Prem </p>
+       </center>
+        <section id="tabs" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 ">
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Graphs</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Tabular</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#nav-profile2" role="tab" aria-controls="nav-profile2" aria-selected="false">State-Wise</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="chartPadding"></div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-5"></div> 
+                                        <select id="stateFilterSelId" onchange="onChangeMainFilter(this);" 
+                                                class="col-3 selectionColor" 
+                                                style="height:50px;text-align: center;">
+                                            <option value="Top10" selected>Top 10 States</option>
+                                            <option value="All">All States</option>
+                                        </select>
+                                          
+                                    </div>
+                                </div>
+                               <div class="chartPadding"></div>
+                               
+                               <div class="container">
+                                    <div class="row">
+                                        <div class="col-5"></div>
+                                        <select id="scalingSelId" onchange="onChangeScaling(this);" 
+                                                class="col-3 selectionColor" 
+                                                style="height:50px;text-align: center;">
+                                            <option value="linear" selected>Linear</option>
+                                            <option value="logarithmic">Logarithmic</option>
+                                        </select>                                         
+                                    </div>
+                                </div>    
+                                <div class="chartPadding"></div>
+                                <center><h3>State-Wise Total <span class="redColor">Confirmed and Death Cases</span> </h3></center>
+                                <p style="text-align: center;"><span id="stateTotalSpanId"> </span></p>                              
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <canvas id="stateTotalChart" width="1000" height="600" ></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chartPadding"></div>
+                                <center><h3 style="text-align: center;">State-Wise Daily <span class="redColor">Confirmed Cases</span> </h3></center>
+                                <p style="text-align: center;"><span id="stateDailyConfirmSpanId"> </span></p>                                                                 
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <canvas id="stateConfirmedLineChart" width="1000" height="600"></canvas>
+                                        </div>                              
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                            
+                            <!-- second tab -->
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="chartPadding"></div>
+                                <center><h3 style="text-align: center;">State-Wise <span class="redColor">Confirmed Cases</span> </h3></center>
+                                <p style="text-align: center;"><span id="tab2SpanId1"> </span></p>
+                                <div class="chartPadding"></div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div>
+                                        <div id="table" class="col-9"></div>                        
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                             <!-- third tab -->
+                            <div class="tab-pane fade" id="nav-profile2" role="tabpanel" aria-labelledby="nav-profile-tab2">
+                                <div class="chartPadding"></div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-5"></div>
+                                        <select id="stateFltrTab3" onchange="onChangeStateFltr(this);" 
+                                                class="col-3 selectionColor" 
+                                                style="height:50px;text-align: center;">
+                                        </select>                                         
+                                    </div>
+                                </div>
+                                <div class="chartPadding"></div>
+                                <center><h3 style="text-align: center;">State-Wise Daily <span class="redColor">Death/Confirmed/Cured Cases</span> </h3></center>
+                                <p style="text-align: center;"><span id="tab3SpanId1"> </span></p>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <canvas id="statecdcchartId" width="1000" height="600"></canvas>
+                                        </div>                              
+                                    </div>
+                                </div>
+                                
+                            </div>    
+                            
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <script src="./scripts/thirdparty/chart.min.js"></script>
+        <script src="./scripts/thirdparty/jquery-3.4.1.slim.min.js"></script>
+        <script src="./scripts/thirdparty/popper.min.js"></script>
+        <script src="./scripts/thirdparty/bootstrap.min.js" ></script>
+        <script src="./scripts/thirdparty/d3/d3.v4.js" ></script>
+        <script src="./scripts/thirdparty/d3/d3-scale-chromatic.v1.min.js" ></script>
+        <script src="./scripts/thirdparty/underscore-min.js" ></script>
+        <script src="./scripts/utility.js" ></script>
+        <script src="./scripts/chartjsScatteredPlot.js" ></script>
+        <script src="./scripts/chartjsLineChartStatewise.js" ></script>
+        <script src="./scripts/chartjsWrapper.js" ></script>
+        <script src="./scripts/tableGraphPlot.js" ></script>
+        <script src="./scripts/tabularWrapper.js" ></script>
+        <script src="./scripts/chartjsLineChartAllStatewise.js" ></script>
+
+        <script>
+            var d = document, root = d.documentElement, body = d.body;
+            var wid = window.innerWidth || root.clientWidth || body.clientWidth,
+                hi = window.innerHeight || root.clientHeight || body.clientHeight;
+            var addlnwid = 0;    
+            $("#stateTotalChart,#stateConfirmedLineChart,#table").width(wid + addlnwid); //.height(200);
+            //$("#statecdcchartId").width(wid + addlnwid).height(hi);
+ 
+            var stateFilterSelIdValue = document.getElementById("stateFilterSelId").value;
+            if (stateFilterSelIdValue === "Top10") {
+                chartJsPlotTopN(0 ,10 ,'stateConfirmedLineChart', 'stateTotalChart');
+            } else {
+                chartJsPlotTopN(-1 ,-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+            }
+            
+            var scalingSelIdValue = document.getElementById("scalingSelId").value;
+            window.lineChartScalingType = scalingSelIdValue;
+            
+            //function selectChartPlot
+            function onChangeMainFilter(arg){
+                var val = arg.value;
+                if (val === "Top10") {
+                    chartJsPlotTopN(0 ,10 ,'stateConfirmedLineChart', 'stateTotalChart');
+                } else {
+                    chartJsPlotTopN(-1 ,-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+                }
+            }
+            
+            function onChangeScaling(arg){
+                var scaleValue = arg.value;
+                var val = document.getElementById("stateFilterSelId").value;
+                window.lineChartScalingType = scaleValue;
+                if (val === "Top10") {
+                    chartJsPlotTopN(0 ,10 ,'stateConfirmedLineChart', 'stateTotalChart');
+                } else {
+                    chartJsPlotTopN(-1 ,-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+                }
+            }
+                       
+            tabularPlot("table");
+            
+            alert(window.lineChartScalingType);
+            chartJsPlotStatewiseAll('stateFltrTab3' ,'statecdcchartId' ,'init');
+            
+            function onChangeStateFltr(arg){
+                var stateVal = arg.value;
+                chartJsPlotStatewiseAll('stateFltrTab3' ,'statecdcchartId' ,'update');
+                //window.lineChartScalingType = scaleValue;
+                //chartJsPlotTopN(-1 ,-1 ,'stateConfirmedLineChart', 'stateTotalChart');
+            }
+            
+        </script>  
+
+    </body>
+</html>
