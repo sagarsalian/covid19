@@ -1,4 +1,6 @@
 
+/* global _ */
+
 // Get Normalized Value API
 var getNormalizedValue = function (DataMin, DataMax, NormalizedMin, NormalizedMax, x) {
     var A = DataMin;
@@ -125,6 +127,36 @@ function getConfirmedAndDeathCases(item, maxValue) {
         points.r = getNormalizedValue(0, maxValue, 5, 20, pointValue);
         // points.other = item.district;
         return points;
+ }
+
+function time_convert(num)
+ { 
+  var hours = Math.floor(num / 60);  
+  var minutes = num % 60;
+  return hours + ":" + minutes;         
+}
+
+var getLastUpdateMinsPassed = function (mydate ,mytime) {
+    //alert (mydate + ", "+mytime);
+    var dateArr = mydate.split("/");
+    var dateStr = dateArr[2]+"/"+dateArr[1]+"/"+dateArr[0];
+    var timeArr =  mytime.split(":");
+    var year = parseInt(dateArr[2]);
+    var month = parseInt(dateArr[1]);
+    month = month -1;
+    if (month < 0) month=0;
+    var day = parseInt(dateArr[0]);
+    var hr = 0;
+    if(timeArr[1].includes("PM")){
+        hr = parseInt(timeArr[0]) + 12;
+    } else {
+        hr = parseInt(timeArr[0]);
     }
+    // alert(year + "," + month +" ,"+ day +" "+hr);
+    var storeDate = new Date(year, month, day, hr ,0 ,0 ,0);
+    var diff = Math.abs(new Date() - storeDate);
+    var minutespassed = Math.floor((diff/1000)/60);
+    return time_convert(minutespassed);
+};
 
 

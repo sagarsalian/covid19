@@ -230,12 +230,15 @@ var dataProcessingApi = function () {
         var dateList = _.keys(_.countBy(storeData, function (d) {
             return d.Date;
         }));
-        var hourList = _.keys(_.countBy(storeData, function (d) {
-            return d.Time;
-        }));
+        var lastUpdatedHrmin= storeData[storeData.length-1].Time;
+
         var statewiseJsonData = _.groupBy(storeData, 'State/UnionTerritory');
         var stateWiseDataCnt = [];
         var stateWiseTabularDataCnt = [];
+        var topHeaderDataCnt = [];
+        var totalConfirmCnt = 0;
+        var totalDeathCnt = 0;
+        var totalCuredCnt = 0;
         _.each(stateList, function (statename) {
             var filteredData = statewiseJsonData[statename];
             var confirmedArray = filteredData.map(obj => getConfirmedCases(obj));
@@ -248,13 +251,16 @@ var dataProcessingApi = function () {
             var totalCnt = parseInt(currConfirmedCnt) + parseInt(currCuredCnt) + parseInt(currDeathCnt);
             var lastArrVal = confirmedArray[confirmedArray.length - 1];
             var prevLastArrVal = confirmedArray[confirmedArray.length - 2];
-            var lastConfirmedValue = confirmedArray[confirmedArray.length - 1];
+            var lastConfirmedValue = (confirmedArray.length === 0)?0: confirmedArray[confirmedArray.length - 1];          
             var lastIncreasedValue = (prevLastArrVal===null||prevLastArrVal===undefined)?0:(lastArrVal - prevLastArrVal);
             // Last 7 days data
             confirmedArray = confirmedArray.slice(confirmedArray.length - 1 - 6, confirmedArray.length);
-            stateWiseTabularDataCnt.push({"state": statename,
-                "confirmedArray": confirmedArray, "maxConfirmed": lastConfirmedValue, "lastIncreasedValue": lastIncreasedValue});
-
+            stateWiseTabularDataCnt.push({"state": statename,"confirmedArray": confirmedArray, 
+                "maxConfirmed": lastConfirmedValue, "lastIncreasedValue": lastIncreasedValue});
+            
+            totalConfirmCnt += currConfirmedCnt; 
+            totalDeathCnt += currDeathCnt; 
+            totalCuredCnt += currCuredCnt; 
             stateWiseDataCnt.push(
                     {"state": statename, "confirmed": currConfirmedCnt, "recovered": currCuredCnt, "death": currDeathCnt,
                         "totalConfirmDeath": totalConfirmDeathCnt, "total": totalCnt});
@@ -284,13 +290,25 @@ var dataProcessingApi = function () {
         console.log(statewiseJsonData);
 
         populateAllStateSelectList(stateListSorted);
+        // populate updateTime
         var spanIdList = document.getElementsByClassName('updateDateTime');
         var spanArrFromList = Array.prototype.slice.call(spanIdList);
+        var lastUpdateDate = parseDateFmt(dateList[dateList.length - 1]);
         $('.updateDateTime').each(function() {
-            $(this).text( "Updated on "+ parseDateFmt(dateList[dateList.length - 1]) 
-                    +" "+ hourList[hourList.length -1] );
+            $(this).text( "Updated on "+lastUpdateDate  
+                    +" "+  lastUpdatedHrmin);
         });
-
+        // populate top header values
+        var minutespassed = getLastUpdateMinsPassed(lastUpdateDate ,lastUpdatedHrmin);
+        $("#spanHdr1").text(totalConfirmCnt);
+        $("#spanHdr2").text(totalCuredCnt);
+        $("#spanHdr3").text(totalDeathCnt);
+        $('.cardBodyTime').each(function() {
+            $(this).text( "Last updated "+minutespassed+" mins ago" );
+        });
+        
+        
+        // additional data to pass
         var addlnObj = {};
         addlnObj.maxConfirmedValue = maxConfirmedValue;
         addlnObj.maxDeathValue = maxDeathValue;

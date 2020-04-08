@@ -99,34 +99,6 @@ var chartJsScatteredPlotGraph = function (finalDataSet ,stateList ,chartId ,allF
         tooltips: charttooltip
     };
 
-/*
-    function getConfirmedAndDeathCases(item, maxValue) {
-        var points = new Object();
-        points.x = parseInt(item.confirmed); // getNormalizedValue(0,100,0,10,item.confirmed);
-        points.y = parseInt(item.death); // getNormalizedValue(0,100,0,10,item.death);
-        var pointValue = (points.x + points.y);
-        points.r = getNormalizedValue(0, maxValue, 5, 20, pointValue);
-        // points.other = item.district;
-        return points;
-    }*/
-
-    /*
-    var confirmMaxVal = addlnObj.maxConfirmedValue;//getMaxValue(data, "confirmed");
-    var deathMaxVal = addlnObj.maxDeathValue;// getMaxValue(data, "death");
-    var recoveredMaxVal = addlnObj.maxCuredValue; //getMaxValue(data, "recovered");
-    var fullDataMaxVal =  addlnObj.maxConfirmDeathValue;//parseInt(confirmMaxVal) + parseInt(deathMaxVal);
-
-    var finalDataSet = [];
-
-    _.each(stateList, function (statename) {
-        var filteredData = data.filter(obj => obj.state === statename);
-        finalDataSet.push({
-            label: statename,
-            backgroundColor: stringToColour(statename),
-            borderColor: stringToColour(statename),
-            data: filteredData.map(obj => getConfirmedAndDeathCases(obj, fullDataMaxVal))
-        });
-    });*/
 
     window.scatteredChart = new Chart(chartElemt, {
         type: 'bubble', //scatter ,bubble

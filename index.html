@@ -20,38 +20,30 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
         <link rel="stylesheet" href="./css/customTabular.css" >
+        <script defer src="./scripts/thirdparty/fontawesome/all.min.js" ></script>
+        
         <style>
             body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
             body {font-size:16px;}
             .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
             .w3-half img:hover{opacity:1}
-            .myFont {
-                font-size:30px;
-            }
-            .topSmallMenu {
-                font-size: 40px;
-            }
-            .sideBarMenu{
-                font-size: 30px;
-            }
-            .filters {
-                height:60px;
-                text-align: center;
-            }
+            .myFont { font-size:30px; }
+            .topSmallMenu { font-size: 40px; }
+            .sideBarMenu{ font-size: 30px; }
+            .filters { height:60px;text-align: center; }
             .chartSizeDiv {
                 position: relative;              
                 height:800px; 
                 width:1000px;
             }
-            .txtCenter {
-                text-align: center;
-            }
-            .updateDateTime {
-                margin: 8px;
-            }
-            .headerPadding {
-                margin-top :10px; 
-            }
+            .txtCenter { text-align: center; }
+            .updateDateTime { margin: 8px;font-size:20px;  }
+            .headerPadding { margin-top :10px; }            
+            .cl-orange { color : black; background-color: #f0ad4e; }
+            .cl-blue { color : black; background-color: #0275d8; }
+            .cl-red { color : black; background-color: #d9534f ; }
+            .cardBodyTime { color :black; font-size: 16px; }
+            .cardBodyText { color :black; font-size: 32px; }
             
         </style>
     </head>
@@ -84,7 +76,7 @@
             <!-- Header -->
             <div class="w3-container" style="margin-top:80px" id="showcase">
                 <h1 class="w3-jumbo"><b>COVID-19 India </b></h1>
-                <h1 class="w3-xxxlarge w3-text-red"><b>Dashboard </b></h1>
+                <h1 class="w3-xxxlarge w3-text-red"><b>Dashboard <i class="fas fa-viruses"></i></b></h1>
                 <p>&#9400; RS Prem </p>
                 <hr style="width:50px;border:5px solid red" class="w3-round">
             </div>
@@ -101,6 +93,42 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent" style="position: relative; width:1000px;">
+                <div class="container" style="margin-top: 15px;">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="card text-center cl-orange mb-3">
+                                <div class="card-body" >
+                                    <i class="fas fa-ambulance fa-3x"></i>
+                                    <h5 class="card-title">Pan India Confirmed</h5>
+                                    <p class="card-text"><span class="cardBodyText" id="spanHdr1"></span></p>
+                                    <p class="card-text"><small class="text-muted"><span class="cardBodyTime"></span></small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card text-center cl-blue mb-3">
+                                <div class="card-body" >
+                                    <i class="fas fa-smile fa-3x"></i>
+                                    <h5 class="card-title">Pan India Recovered</h5>
+                                    <p class="card-text"><span class="cardBodyText" id="spanHdr2"></span></p>
+                                    <p class="card-text"><small class="text-muted"><span class="cardBodyTime"></span></small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card text-center cl-red mb-3">
+                                <div class="card-body" >
+                                    <i class="fas fa-skull-crossbones fa-3x"></i>
+                                    <h5 class="card-title">Pan India Death</h5>
+                                    <p class="card-text"><span class="cardBodyText" id="spanHdr3"></span></p>
+                                    <p class="card-text"><small class="text-muted"><span class="cardBodyTime"></span></small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
                 <!-- TAB 1-->
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="txtCenter w3-xxlarge w3-text-red headerPadding">State-Wise Daily Confirmed Cases</h3>
@@ -182,7 +210,9 @@
                 <p>The best team in the world.</p>
                 <p>
                 </p>
-                <p><b>Our designers are thoughtfully chosen</b></p>
+                <p><b>Our designers are thoughtfully chosen :</b></p>
+                <p>Sagar</p>
+                <p>suvarna.sagar3@gmail.com</p>
             </div>
             
             <!-- Contact Us -->

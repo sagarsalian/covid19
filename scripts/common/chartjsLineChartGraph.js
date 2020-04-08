@@ -104,23 +104,6 @@ var chartJsLineChartGraph = function (finalDataSet, dateList, chartId, allFlag ,
         datasets: finalDataSet
     };
 
-    /*function removeLineChartData() {
-        alert(lineChartVar.data.datasets.length);
-        
-        for (var i = 0; i < lineChartVar.data.datasets.length; i++) {
-            lineChartVar.data.labels = [];
-            lineChartVar.data.datasets.forEach((dataset) => {
-                dataset.data = [];
-            });
-            lineChartVar.update();
-        }
-    }
-    
-    if (updateType === 'update') {
-        alert("update");
-        removeLineChartData();
-    }*/
-
     var lineChartVar = new Chart(chartElemt, {
         type: 'line',
         data: finalLineChartData,
