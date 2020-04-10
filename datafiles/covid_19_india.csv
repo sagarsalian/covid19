@@ -1,4 +1,4 @@
-﻿Sno,Date,Time,State/UnionTerritory,ConfirmedIndianNational,ConfirmedForeignNational,Cured,Deaths,Confirmed
+﻿Sno ,Date,Time,State/UnionTerritory,ConfirmedIndianNational,ConfirmedForeignNational,Cured,Deaths,Confirmed
 1,30/01/20,6:00 PM,Kerala,1,0,0,0,1
 2,31/01/20,6:00 PM,Kerala,1,0,0,0,1
 3,01/02/20,6:00 PM,Kerala,2,0,0,0,2
